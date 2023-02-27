@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root
+{
+  --bg-primary: #404e67;
+  --bg-primary-2: #3c4a62;
+  --bg-secondary: #f5f6fa;
+  --text-primary: #50547d;
+  --text-secondary: #919aa3;
+  --text-warning-cust: #fe9365;
+  --text-primary-cust: #01aaad;
+  --text-success-cust: #0ac584;
+  --text-highlight-cust: #fe5f71;
+  --theme-light: #ffc83d;
+  --ico-size-sm: 16;
+  --ico-size-md: 24;
+  --ico-size-lg: 32;
+}
+
+#root {
+  height: 100%;
+}
+
+/* div {
+  height: 100%;
+} */
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  /* overflow-y: hidden; */
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* 
+  ---------------------------------- 
+  SCROLL BAR CONFIG
+  ----------------------------------
+*/
+
+.-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #555555;
+}
+.ag-theme-alpine
+{
+    --ag-font-size: 11px !important;
+}
+
+.ag-header-cell-text
+{
+    font-size: small;
+}
+.ag-paging-panel
+{
+    font-size: small;
+}

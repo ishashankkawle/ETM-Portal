@@ -1,0 +1,36 @@
+.nav {
+    box-shadow: 0 0 11px rgb(0 0 0 / 13%);
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: lightgray;
+    padding-top: 5%;
+}
+
+.nav-profile-primary {
+    color: var(--text-primary);
+    font-size: small;
+    font-weight: bold;
+}
+.nav-profile-secondary {
+    color: var(--text-secondary);
+    font-size: smaller;
+}
+.nav-dropdown-menu-item{
+    font-size: small;
+}
+
+.nav-brand-logo {
+    width: 16%;
+    background-color: var(--bg-primary);
+    box-shadow: 0 0 11px rgb(0 0 0 / 13%);
+    color: #fff;
+}
+
+.nav-brand-img {
+    width: 15%;
+}
