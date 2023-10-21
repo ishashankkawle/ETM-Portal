@@ -19,7 +19,7 @@ jobs:
       - name: Create build
         run: |
           git fetch
-          git checkout CoreSource
+          git checkout core-source
           rm -rf node_modules
           npm install
           echo "--------------------------------------------"
@@ -40,15 +40,15 @@ jobs:
           git config --global user.name 'CI_CD Agent'
           git config --global user.email 'skawle631@gmail.com'
           git add -A
-          git commit -am "Automated PUBLISH [SUCCESS] -> CoreSource"
+          git commit -am "Automated PUBLISH [SUCCESS] -> core-source"
           ls
 
       - name: Copy build to local master branch
         run: |
-          git checkout master
+          git checkout main
           git fetch
           rm -rf *
-          git checkout CoreSource -- build
+          git checkout core-source -- build
           cp -r build/* .
           rm -rf node_modules
 
