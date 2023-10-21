@@ -1,0 +1,65 @@
+
+name: CI-CD
+
+on:
+  push:
+    branches: 
+      - CoreSource
+  pull_request:
+    branches: 
+      - CoreSource
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create build
+        run: |
+          git fetch
+          git checkout CoreSource
+          rm -rf node_modules
+          npm install
+          echo "--------------------------------------------"
+          echo "PRE-BUILD FOLDER TATUS"
+          echo "--------------------------------------------"
+          ls
+          echo "--------------------------------------------"
+          echo "STARTING BUILD"
+          echo "--------------------------------------------"
+          npm run build
+          echo "--------------------------------------------"
+          echo "BUILD CREATED SUCCESSFULLY"
+          echo "--------------------------------------------"
+          echo "--------------------------------------------"
+          echo "POST-BUILD FOLDER TATUS"
+          echo "--------------------------------------------"
+          ls
+          git config --global user.name 'CI_CD Agent'
+          git config --global user.email 'skawle631@gmail.com'
+          git add -A
+          git commit -am "Automated PUBLISH [SUCCESS] -> CoreSource"
+          ls
+
+      - name: Copy build to local master branch
+        run: |
+          git checkout master
+          git fetch
+          rm -rf *
+          git checkout CoreSource -- build
+          cp -r build/* .
+          rm -rf node_modules
+
+      - name: Final Directory Structure of Master
+        run: |
+          ls
+      
+      - name: Push changes to github
+        run: |
+          git config --global user.name 'CI_CD Agent'
+          git config --global user.email 'skawle631@gmail.com'
+          git add -A
+          git commit -am "Automated DEPLOY [SUCCESS]"
+          git push
