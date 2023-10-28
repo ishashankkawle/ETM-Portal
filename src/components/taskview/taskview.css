@@ -1,0 +1,141 @@
+.tskview-background {
+    background-color: var(--bg-secondary);
+    height: 100% !important;
+}
+
+.tskview-panel{
+    background-color: #fff;
+    width: 90%;
+}
+.tskview-details-pane
+{
+    background-color: var(--bg-primary);
+    color: var(--bg-secondary);
+}
+.tskview-header-pane
+{
+    border-bottom: 1px dashed lightgray;
+}
+.tskview-header-pane > p
+{
+    font-size: smaller;
+}
+
+.tskview-details-list-group-item
+{
+    background: none !important;
+    color: var(--bg-secondary);
+    font-size: smaller;
+    border: none;
+}
+
+.tskview-activity-list
+{
+    list-style-type: none;
+    margin-top: 2%;
+}
+.tskview-activity-list-item
+{
+    color: var(--bg-primary);
+    border-left: 1px solid grey;
+}
+.comment::before
+{
+    content: "" !important;
+    width: 10px;
+    height: 10px;
+    background-color: #21bd3e !important;
+    border-radius: 10px !important;
+    position: relative;
+    left: -0.8%;
+    top: 10%;
+    display: block;
+}
+.workflow::before
+{
+    content: "" !important;
+    width: 10px;
+    height: 10px;
+    background-color: var(--text-highlight-cust) !important;
+    border-radius: 10px !important;
+    position: relative;
+    left: -0.8%;
+    top: 10%;
+    display: block;
+}
+.field::before
+{
+    content: "" !important;
+    width: 10px;
+    height: 10px;
+    background-color: var(--text-primary-cust) !important;
+    border-radius: 10px !important;
+    position: relative;
+    left: -0.8%;
+    top: 10%;
+    display: block;
+}
+.tskview-activity-box
+{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2);
+    font-size: smaller;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 5%;
+    margin-left: 3%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+.tskview-activity-box > p
+{
+    font-size: smaller;
+    margin-top: 2%;
+    margin-bottom: 0;
+}
+.tskview-activity-image
+{
+    padding: 2%;
+    border: 1px solid lightgray;
+    width: auto;
+    margin-top: 2%;
+    border-radius: 5%;
+}
+.tskview-edit-button
+{
+    height: 60%;
+}
+
+.tskview-edit-panel
+{
+    position: absolute;
+    top: 5%;
+    background-color: #FFF;
+    width: 90%;
+    padding: 3%;
+}
+.tskview-form-field
+{
+    width: 30%;
+    margin: 1.5%;
+    font-size: smaller;
+}
+.tskview-form-button
+{
+    width: auto !important;
+    margin-left: 1.5% !important;
+    margin-top: 1.5%;
+}
+.tskview-text-small
+{
+    font-size: smaller !important;
+}
+.tskview-attachment-list-group-item
+{
+    background: none;
+    font-size: smaller;
+    color: rgb(131, 155, 217);
+}
+.tskview-attachment-list-group-item > a
+{
+    text-decoration: none;
+}

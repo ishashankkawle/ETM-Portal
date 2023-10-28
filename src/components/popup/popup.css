@@ -1,0 +1,16 @@
+.notif-box
+{
+    background-color: lightgray;
+    color: white;
+    width: auto;
+}
+.notif-icon
+{
+    scale: 0.5;
+    width: 10%;
+}
+
+.toast:not(.show)
+{
+    display: block;
+}

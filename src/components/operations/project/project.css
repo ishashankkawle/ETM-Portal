@@ -1,0 +1,27 @@
+.op-proj-inp-grp-text
+{
+    padding: 3%;
+    background-color: #fff;
+    border-right: 0;
+    color: var(--text-secondary);
+}
+.op-proj-frm-ctrl
+{
+    border-left: 0;
+    padding: 2%;
+}
+
+input:focus
+{
+    outline: none !important;
+    outline-width: 0;
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+}
+
+
+
+.prgboard
+{
+    text-align: start;
+}

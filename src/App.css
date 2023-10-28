@@ -23,3 +23,24 @@
   }
 } */
 
+.ag-overlay-loading-center {
+  border: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.main-loader
+{
+    position: fixed;
+    z-index: 1;
+    width: auto;
+    text-align: center;
+    top: 44%
+}
+.main-loader-gif
+{
+    width: 25%;
+    height: 25%;
+}

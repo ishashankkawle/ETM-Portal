@@ -1,0 +1,46 @@
+.nav
+{
+    box-shadow: none;
+}
+.nav-pills .nav-link
+{
+    text-decoration: none !important;
+    color: var(--text-primary) !important;
+    border-radius: 0 !important;
+    font-size: small !important; 
+}
+.nav-link.active
+{
+    background-color: #0d6efd !important;
+    color: var(--bg-secondary) !important;
+}
+.ver-tabs
+{
+    border-bottom: 1px solid var(--line-secondary);
+}
+
+.asboard
+{
+    text-align: left;
+    height: 100% !important;
+}
+
+.asb-subtitle
+{
+    font-size: smaller;
+}
+
+.card
+{
+    text-align: start;
+    border: none;
+}
+.btn-group
+{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: none;
+    transform: translateX(10%);
+}

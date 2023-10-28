@@ -3,12 +3,24 @@ import logo from '../../assets/logoDesign.png'
 import { HelpCircle, Sun, Search, Moon, ChevronDown, User, Power, MoreHorizontal, CheckSquare } from 'react-feather';
 import './navbar.css'
 import { NavLink } from "react-router-dom";
+import res from "../../shared/resources";
 
 class Navbar extends Component {
 
+    getInitials = () => {
+        let arrStr = res["STR_USERNAME"].split(" ")
+        let returnValue = ""
+        if (arrStr.length == "1") {
+            returnValue =  arrStr[0].charAt(0).toUpperCase()
+        } else {
+            returnValue =  arrStr[0].charAt(0).toUpperCase() + arrStr[arrStr.length - 1].charAt(0).toUpperCase()
+        }
+        return returnValue;
+    }
     render() {
 
-        const initials = "SK"
+        const initials = this.getInitials();
+        const username = res["STR_USERNAME"]
         let themeIcon = null;
 
         if (this.theme == undefined) {
@@ -26,10 +38,10 @@ class Navbar extends Component {
                     </div>
                 </li>
                 <li className="nav-item nav-link p-3">
-                    <NavLink className="menu-item"  to="/taskboard" exact="true"> <Search color='var(--text-primary)' size="18" /> </NavLink>
+                    <NavLink className="menu-item"  to="/app/taskboard" exact="true"> <Search color='var(--text-primary)' size="18" /> </NavLink>
                 </li>
                 <li className="nav-item nav-link p-3 me-auto">
-                    <NavLink className="menu-item"  to="/verification" exact="true"><CheckSquare color='var(--text-primary)' size="18" /> </NavLink>
+                    <NavLink className="menu-item"  to="/app/verification" exact="true"><CheckSquare color='var(--text-primary)' size="18" /> </NavLink>
                 </li>
                 <li className="nav-item nav-link p-3">
                     <HelpCircle color='var(--text-primary)' size="18" />
@@ -41,7 +53,7 @@ class Navbar extends Component {
                     <div className="avatar" >{initials}</div>
                 </li>
                 <li className="nav-item nav-link p-1 d-flex align-items-center justify-content-center">
-                    <span className="nav-profile-primary ">Shashank Kawle</span>
+                    <span className="nav-profile-primary ">{username}</span>
                 </li>
                 <div className="dropdown p-3">
                     <div className="d-flex align-items-center justify-content-center mt-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

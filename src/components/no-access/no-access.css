@@ -1,0 +1,10 @@
+.lan-popup
+{
+    font-size: smaller;
+    padding: 2%;
+    /* background-color: lightgray; */
+    width: 40%;
+    border: 0.5px solid lightgray;
+    border-radius: 18px;
+    margin: 2%;
+}

@@ -1,0 +1,21 @@
+.login-form-image
+{
+    width: 70%;
+    height: 90%;
+    align-self: center;
+}
+.login-form-box
+{
+    align-self: center;
+    width: 70%;
+    text-align: center;
+}
+.login-frm-ctrl
+{
+    margin: 3% , 0%;
+}
+.form-control
+{
+    padding: 2% !important;
+    border-left: 1px solid lightgrey !important
+}

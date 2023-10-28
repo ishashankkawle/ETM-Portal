@@ -1,59 +1,167 @@
 import React, { Component } from "react";
-import { ArrowRightCircle } from "react-feather";
+import { ArrowRightCircle, ChevronsRight, Plus, RotateCw, UserCheck, UserX } from "react-feather";
 import { AgGridReact } from 'ag-grid-react';
 import './taskboard.css'
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { CheckboxSelectionComponent } from "ag-grid-community";
+import HttpHandler from "../../core/httpHandler";
+import Loader from "../loader/loader";
+import { NavLink } from "react-router-dom";
+import { getNextWorkflowStatus } from "../../core/workflowOperations";
+import res from "../../shared/resources";
+import PopupNotification from "../popup/popup";
 
-class TaskBoard extends Component 
-{
+class TaskBoard extends Component {
 
-  constructor(props)
-  {
+  constructor(props) {
     super(props);
     this.gridRef = "";
+    this.popupRef = React.createRef();
+    this.initializeGrid = this.initializeGrid.bind(this);
+    this.updateTaskToNextWorkflow = this.updateTaskToNextWorkflow.bind(this);
+    this.updateTaskToSelfCommit = this.updateTaskToSelfCommit.bind(this);
+    this.updateTaskToSelfDelete = this.updateTaskToSelfDelete.bind(this);
   }
 
-  setGridRef(params)
+
+  initializeGrid = async(params) => 
   {
-    this.gridRef = params.api;
-    console.log("Grid reference set")
+    if(this.gridRef == "")
+    {
+      this.gridRef = params.api;
+    }
+    this.gridRef.showLoadingOverlay();
+    const http = new HttpHandler();
+    let data = await http.httpGet("http://localhost:8081/api/task?taskFilter=TaskOwner&filterParam=" + res["STR_USERID"])
+    let finalData = []
+    for (let index = 0; index < data.length; index++) 
+    {
+      if(data[index]["TaskStatus"] == res["WORKFLOW"]["STR_WF_NEW"] || data[index]["TaskStatus"] == res["WORKFLOW"]["STR_WF_INPROGRESS"])
+      {
+        finalData.push(data[index])
+      }
+    }
+    if(finalData.length == 0)
+    {
+      this.gridRef.showNoRowsOverlay()
+    }
+    else
+    {
+      this.gridRef.setRowData(finalData)
+      this.gridRef.hideOverlay();
+    }
   }
 
-  openTask(params)
-  {
-    window.open("https://www.google.com/" , "_blank")
+  updateTaskToNextWorkflow = async() => {
+    this.popupRef.current.togglePopupNotificationDisplay("Updating task ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
+    
+    let arrData = this.gridRef.getSelectedRows();
+    let body = []
+
+    for (let index = 0; index < arrData.length; index++) 
+    {
+      let object = {
+          "taskId": arrData[index]["TaskId"],
+          "userId": res["STR_USERID"],
+          "userName": res["STR_USERNAME"],
+          "updateType": "workflow",
+          "currentWorkflowState": arrData[index]["TaskStatus"],
+          "newWorkflowState": getNextWorkflowStatus(arrData[index]["TaskStatus"])
+        }  
+      body.push(object)
+    }
+    const http = new HttpHandler();
+    await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+    this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
+  }
+  
+  updateTaskToSelfCommit = async() => {
+    this.popupRef.current.togglePopupNotificationDisplay("Updating task to self-commit ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
+    let arrData = this.gridRef.getSelectedRows();
+    let body = []
+
+    for (let index = 0; index < arrData.length; index++) 
+    {
+      let object = {
+          "taskId": arrData[index]["TaskId"],
+          "userId": res["STR_USERID"],
+          "userName": res["STR_USERNAME"],
+          "updateType": "workflow",
+          "currentWorkflowState": arrData[index]["TaskStatus"],
+          "newWorkflowState": res["WORKFLOW"]["STR_WF_SELFCOMMIT"]
+        }  
+      body.push(object)
+    }
+    const http = new HttpHandler();
+    await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+    this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task for self-commit" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
+  }
+  
+  updateTaskToSelfDelete = async() => {
+    this.popupRef.current.togglePopupNotificationDisplay("Updating task to self-delete ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
+    let arrData = this.gridRef.getSelectedRows();
+    let body = []
+
+    for (let index = 0; index < arrData.length; index++) 
+    {
+      let object = {
+          "taskId": arrData[index]["TaskId"],
+          "userId": res["STR_USERID"],
+          "userName": res["STR_USERNAME"],
+          "updateType": "workflow",
+          "currentWorkflowState": arrData[index]["TaskStatus"],
+          "newWorkflowState": res["WORKFLOW"]["STR_WF_SELFDELETE"]
+        }  
+      body.push(object)
+    }
+    const http = new HttpHandler();
+    await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+    this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task for self-delete" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
   }
 
-  render() 
-  {
+  openTask(params) {
+    window.open("http://localhost:3000/taskview/" + params.data.TaskId, "_blank")
+  }
+
+  render() {
+
     const defaultColDef = {
       sortable: true,
       filter: 'agTextColumnFilter',
       floatingFilter: true,
       flex: 1,
-      resizable:true,
+      resizable: true,
     };
-    
-    const data = [{ "title": "Ascx", "sprint": "Sprint 03-2023", "assignedBy": "Shashank Kawle", "module": "ASKV", "status": "New", "id": "1" }, { "title": "Aacw", "sprint": "Sprint 03-2023", "assignedBy": "Shashank Kawle", "module": "ASKV", "status": "New", "id": "2" }, { "title": "Task 1", "sprint": "Sprint 03-2023", "assignedBy": "Shashank Kawle", "module": "ASKV", "status": "In Progress", "id": "3" }, { "title": "Task 1", "sprint": "Sprint 03-2023", "assignedBy": "Shashank Kawle", "module": "ASKV", "status": "In Progress", "id": "4" }, { "title": "Task 1", "sprint": "Sprint 03-2023", "assignedBy": "Shashank Kawle", "module": "ASKV", "status": "In Progress", "id": "5" }, { "title": "Task 1", "sprint": "Sprint 03-2023", "assignedBy": "Shashank Kawle", "module": "ASKV", "status": "Pending Verification", "id": "6" }, { "title": "Task 1", "sprint": "Sprint 03-2023", "assignedBy": "Shashank Kawle", "module": "ASKV", "status": "Pending Verification", "id": "7" }];
-    
+
     const columnDefs = [
-      { headerName: "Id", field: "id", hide: true }, 
-      { headerName: "Title", field: "title", checkboxSelection: true, headerCheckboxSelection: true}, 
-      { headerName: "Sprint", field: "sprint" },
-      { headerName: "Assigned By", field: "assignedBy" },
-      { headerName: "Module", field: "module" },
-      { headerName: "Status", field: "status" },
-      { headerName: "", field: "id" , sortable: false, resizable:false ,filter: false, defaultMinWidth:50, maxWidth: 50,
-      cellRendererFramework: (params) => <div className="tsb-action-button" onClick={() => this.openTask(params)}>
-                                            <ArrowRightCircle color="var(--text-primary-cust)" size="28"/>
-                                          </div>},
+      { headerName: "Id", field: "TaskId", checkboxSelection: true, headerCheckboxSelection: true },
+      { headerName: "Title", field: "Title" },
+      { headerName: "Sprint", field: "SprintName" },
+      { headerName: "Assigned By", field: "AssignerName" },
+      { headerName: "Module", field: "Module" },
+      { headerName: "Status", field: "TaskStatus" },
+      {
+        headerName: "", field: "Id", sortable: false, resizable: false, filter: false, defaultMinWidth: 50, maxWidth: 50,
+        cellRendererFramework: (params) => <div className="tsb-action-button" onClick={() => this.openTask(params)}>
+          <ArrowRightCircle className="mb-1" color="var(--text-primary-cust)" size="18" />
+        </div>
+      },
     ]
 
+
     return (
-      <div className="tsboard mt-2 ag-theme-alpine" style={{height: '90%'}}>
-        <AgGridReact defaultColDef={defaultColDef} rowData={data} columnDefs={columnDefs} onGridReady={this.setGridRef} pagination={true} paginationPageSize={15}></AgGridReact>
+
+      <div className="tsboard mt-2 ag-theme-alpine" style={{ height: '85%' }}>
+        <div className="btn-group btn-group-sm shadow-sm bg-white" role="group" aria-label="Basic example">
+          <button type="button" className="btn"><NavLink to="/app/operations/task" exact="true"><Plus color="var(--text-primary)" size="16" /></NavLink></button>
+          <button type="button" className="btn" onClick={this.updateTaskToNextWorkflow}><ChevronsRight color="var(--text-primary)" size="16" /></button>
+          <button type="button" className="btn" onClick={this.updateTaskToSelfCommit}><UserCheck color="var(--text-primary)" size="16" /></button>
+          <button type="button" className="btn" onClick={this.updateTaskToSelfDelete}><UserX color="var(--text-primary)" size="16" /></button>
+          <button type="button" className="btn" onClick={this.initializeGrid}><RotateCw color="var(--text-primary)" size="16" /></button>
+        </div>
+        <AgGridReact className="shadow-sm" defaultColDef={defaultColDef} rowData={this.data} columnDefs={columnDefs} onGridReady={this.initializeGrid} pagination={true} paginationPageSize={15} loadingOverlayComponent={Loader}></AgGridReact>
+      
+        <PopupNotification ref={this.popupRef}/>
       </div>
     )
   }

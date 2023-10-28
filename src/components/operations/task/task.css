@@ -1,0 +1,36 @@
+.op-tsk-inp-grp-txt
+{
+    padding: 3%;
+    background-color: #fff;
+    border-right: 0;
+    color: var(--text-secondary);
+}
+.form-control
+{
+    padding: 2% !important;
+    border-left: 0;
+}
+
+input:focus
+{
+    outline: none !important;
+    outline-width: 0;
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+}
+
+textarea:focus
+{
+    outline: none !important;
+    outline-width: 0;
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+}
+
+select:focus
+{
+    outline: none !important;
+    outline-width: 0;
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+}

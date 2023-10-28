@@ -1,0 +1,25 @@
+.main-loader
+{
+    position: fixed;
+    z-index: 1;
+    width: 82%;
+    text-align: center;
+    top: 44%
+}
+.main-loader-full
+{
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    top: 44%
+}
+.main-loader-gif
+{
+    width: 25%;
+    height: 25%;
+}
+.main-loader-gif-independent
+{
+    width: 5%;
+}
