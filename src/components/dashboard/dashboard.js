@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Archive, BarChart, Check, CheckCircle, Clock, Eye, FileText, Info, Settings, Tool, Trash, UserCheck, UserX } from "react-feather";
+import { Archive, Check, CheckCircle, Clock, Eye, FileText, Info, Settings, Tool, Trash, UserCheck, UserX } from "react-feather";
 import './dashboard.css'
 import res from "../../shared/resources";
 import HttpHandler from "../../core/httpHandler";
-import { getCurrentDateString, getDateDifference, getSelectOptionsList, sleep } from "../../core/util";
+import { getCurrentDateString, getDateDifference, getSelectOptionsList } from "../../core/util";
 import { Doughnut, Bar } from 'react-chartjs-2';
 import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from "chart.js";
 import { getLoader } from "../loader/loader";
@@ -35,21 +35,21 @@ class Dashboard extends Component {
     {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrProjData = await http.httpGet("http://localhost:8081/api/project?userId=" + res["STR_USERID"]);
+        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
         this.setState({isLoading: false , projData : arrProjData});
     }
 
     loadSummary = async(projectId) =>
     {
         let http = new HttpHandler();
-        let summaryObject = await http.httpGet("http://localhost:8081/api/task/summary?userId=" + res["STR_USERID"] + "&asOwner=true&projectId=" + projectId); 
+        let summaryObject = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/summary?userId=" + res["STR_USERID"] + "&asOwner=true&projectId=" + projectId); 
         this.setState({summaryData : summaryObject})
     }
     
     loadModuleData = async(projectId) =>
     {
         let http = new HttpHandler();
-        let moduleObject = await http.httpGet("http://localhost:8081/api/module/countByProject?projectId=" + projectId); 
+        let moduleObject = await http.httpGet(res["STR_API_BASEPATH"] + "/api/module/countByProject?projectId=" + projectId); 
         this.setState({moduleData : moduleObject})
     }
 
@@ -58,14 +58,14 @@ class Dashboard extends Component {
         let http = new HttpHandler();
         let dateObj = new Date();
         let dateString = dateObj.getFullYear() + "-" + dateObj.getMonth().toString().padStart(2,"0") + "-" + dateObj.getDate().toString().padStart(2 , "0")
-        let sprintObject = await http.httpGet("http://localhost:8081/api/sprint/active?projectId=" + projectId + "&date=" + dateString); 
+        let sprintObject = await http.httpGet(res["STR_API_BASEPATH"] + "/api/sprint/active?projectId=" + projectId + "&date=" + dateString); 
         this.setState({sprintData : sprintObject})
     }
 
     loadUpdates = async(projectId) =>
     {
         let http = new HttpHandler();
-        let updateArray = await http.httpGet("http://localhost:8081/api/task/summary/details?userId=" + res["STR_USERID"] + "&asOwner=true&projectId=" + projectId); 
+        let updateArray = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/summary/details?userId=" + res["STR_USERID"] + "&asOwner=true&projectId=" + projectId); 
         let updateObject = {
             "NEW" : 0,
             "IN_PROGRESS" : 0,

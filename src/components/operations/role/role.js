@@ -27,7 +27,7 @@ class Role extends Component
         }
         this.gridRef.showLoadingOverlay();
         const http = new HttpHandler();
-        let data = await http.httpGet("http://localhost:8081/api/role")
+        let data = await http.httpGet(res["STR_API_BASEPATH"] + "/api/role")
         if(data.length == 0)
         {
           this.gridRef.showNoRowsOverlay()
@@ -48,7 +48,7 @@ class Role extends Component
             "permissions": [res["DEFAULTS"]["STR_ACCESS"]]
         };
         const http = new HttpHandler();
-        await http.httpPost("http://localhost:8081/api/role" , body);
+        await http.httpPost(res["STR_API_BASEPATH"] + "/api/role" , body);
     }
 
     render() {

@@ -23,7 +23,7 @@ class Security extends Component {
     async componentDidMount() {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/role");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/role");
         this.setState({ isLoading: false, roleData: arrData });
     }
 
@@ -65,7 +65,7 @@ class Security extends Component {
           };
         const http = new HttpHandler();
         try {
-            await http.httpPut("http://localhost:8081/api/role" , body);
+            await http.httpPut(res["STR_API_BASEPATH"] + "/api/role" , body);
         } catch (error) {
             
         }

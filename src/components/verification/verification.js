@@ -37,7 +37,7 @@ class Verification extends Component {
 
     async componentDidMount() {
         let http = new HttpHandler();
-        let summData = this.populateSummaryCount(await http.httpGet("http://localhost:8081/api/task/summary/details?userId=" + res["STR_USERID"] + "&asOwner=false"));
+        let summData = this.populateSummaryCount(await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/summary/details?userId=" + res["STR_USERID"] + "&asOwner=false"));
         this.setState(() => {
             //return {summaryCountObject : summData ,dataVerificationCommit : arrVerifCommit , dataVerificationDelete : arrVerifDelete}
             return {summaryCountObject : summData}
@@ -61,7 +61,7 @@ class Verification extends Component {
           body.push(object)
         }
         const http = new HttpHandler();
-        await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+        await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
     }
 
     updateTaskToDelete = async() => {
@@ -81,7 +81,7 @@ class Verification extends Component {
           body.push(object)
         }
         const http = new HttpHandler();
-        await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+        await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
     }
     
     revertTaskFromComGrid = async() => {
@@ -101,7 +101,7 @@ class Verification extends Component {
           body.push(object)
         }
         const http = new HttpHandler();
-        await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+        await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
     }
     
     revertTaskFromDelGrid = async() => {
@@ -121,7 +121,7 @@ class Verification extends Component {
           body.push(object)
         }
         const http = new HttpHandler();
-        await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+        await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
     }
 
     populateSummaryCount = (data) => {
@@ -162,7 +162,7 @@ class Verification extends Component {
         }
         this.asgGridRef.showLoadingOverlay();
         let http = new HttpHandler();
-        let dataAssignmentSummary = await http.httpGet("http://localhost:8081/api/task/rcs_util?userId=" + res["STR_USERID"] + "&summary=false");
+        let dataAssignmentSummary = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/rcs_util?userId=" + res["STR_USERID"] + "&summary=false");
         if (dataAssignmentSummary.length == 0) 
         {
             this.asgGridRef.showNoRowsOverlay();
@@ -181,7 +181,7 @@ class Verification extends Component {
         }
         this.rcsGridRef.showLoadingOverlay();
         let http = new HttpHandler();
-        let arrRCSData = await http.httpGet("http://localhost:8081/api/task/rcs_util?userId=" + res["STR_USERID"] + "&summary=true");
+        let arrRCSData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/rcs_util?userId=" + res["STR_USERID"] + "&summary=true");
         let dataRCSSummary = this.populateResourceConsumptionData(arrRCSData)
         if (dataRCSSummary.length == 0) 
         {
@@ -202,7 +202,7 @@ class Verification extends Component {
         }
         this.verCommitGridRef.showLoadingOverlay();
         let http = new HttpHandler();
-        let arrVerifCommit = await http.httpGet("http://localhost:8081/api/task/verification/commit?userId=" + res["STR_USERID"]);
+        let arrVerifCommit = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/verification/commit?userId=" + res["STR_USERID"]);
         if (arrVerifCommit.length == 0) 
         {
             this.verCommitGridRef.showNoRowsOverlay();
@@ -222,7 +222,7 @@ class Verification extends Component {
         }
         this.verDeleteGridRef.showLoadingOverlay();
         let http = new HttpHandler();
-        let arrVerifDelete = await http.httpGet("http://localhost:8081/api/task/verification/delete?userId=" + res["STR_USERID"]);
+        let arrVerifDelete = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/verification/delete?userId=" + res["STR_USERID"]);
         if (arrVerifDelete.length == 0) 
         {
             this.verDeleteGridRef.showNoRowsOverlay();

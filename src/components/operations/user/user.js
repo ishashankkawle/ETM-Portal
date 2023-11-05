@@ -23,7 +23,7 @@ class User extends Component
     async componentDidMount() {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/role/small?userroleid=" + res["STR_ROLEID"]);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/role/small?userroleid=" + res["STR_ROLEID"]);
         this.setState({ isLoading: false, roleData: arrData });
     }
 
@@ -51,7 +51,7 @@ class User extends Component
           }
 
         const http = new HttpHandler();
-        await http.httpPost("http://localhost:8081/api/user" , body);
+        await http.httpPost(res["STR_API_BASEPATH"] + "/api/user" , body);
         this.popupRef.current.togglePopupNotificationDisplay("Successfully created user" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 

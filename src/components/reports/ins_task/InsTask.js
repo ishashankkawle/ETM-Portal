@@ -25,7 +25,7 @@ class InsTask extends Component {
         }
         this.gridRef.showLoadingOverlay();
         const http = new HttpHandler();
-        let taskData = await http.httpGet("http://localhost:8081/api/task");
+        let taskData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task");
         if (taskData.length == 0) {
             this.gridRef.showNoRowsOverlay()
         }

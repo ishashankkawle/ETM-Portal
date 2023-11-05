@@ -27,7 +27,7 @@ class Project extends Component {
         }
         this.gridRef.showLoadingOverlay();
         const http = new HttpHandler();
-        let projectData = await http.httpGet("http://localhost:8081/api/project?userId=" + res["STR_USERID"]);
+        let projectData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
         if(projectData.length == 0)
         {
             this.gridRef.showNoRowsOverlay()
@@ -47,7 +47,7 @@ class Project extends Component {
                 "userId" : res["STR_USERID"]
         };
         const http = new HttpHandler();
-        await http.httpPost("http://localhost:8081/api/project" , body);
+        await http.httpPost(res["STR_API_BASEPATH"] + "/api/project" , body);
     }
 
     render() {

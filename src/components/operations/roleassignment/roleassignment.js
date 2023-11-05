@@ -30,7 +30,7 @@ class RoleAssignment extends Component {
     async componentDidMount() {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrProjData = await http.httpGet("http://localhost:8081/api/project?userId=" + res["STR_USERID"]);
+        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
         this.setState({ isLoading: false, projData: arrProjData });
     }
 
@@ -48,7 +48,7 @@ class RoleAssignment extends Component {
         this.setState(obj)
         let projectId = document.getElementById("opr_roleassignment_proj_sel").value;
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=small");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=small");
         this.setState({userData : arrData , isUserFetchComplete : true })
     }
 
@@ -56,7 +56,7 @@ class RoleAssignment extends Component {
         this.setState({isUserSelected: true,})
         let userId = document.getElementById("opr_roleassignment_user_sel").value;
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/role/validlist?updaterroleid=" + res["STR_USERID"] + "&userroleid=" + userId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/role/validlist?updaterroleid=" + res["STR_USERID"] + "&userroleid=" + userId);
         this.setState({roleData : arrData , isRoleFetchComplete : true})
     }
 

@@ -72,7 +72,7 @@ class TaskView extends Component {
         this.setState({ isLoading: true });
         let taskId = window.location.href.split("/").pop();
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/task/" + taskId + "?activity=true");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/" + taskId + "?activity=true");
         this.setState({ isLoading: false, taskData: arrData["0"]["payload"][0], activityData: arrData["1"]["payload"]["activity"].reverse() });
     }
 
@@ -96,7 +96,7 @@ class TaskView extends Component {
     loadProjectForTask = async () => {
         if (!this.state.isProjectFetchComplete) {
             let http = new HttpHandler();
-            let arrData = await http.httpGet("http://localhost:8081/api/project?userId=" + res["STR_USERID"]);
+            let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
             this.setState({ isProjectFetchComplete: true, projectData: arrData })
         }
     }
@@ -130,27 +130,27 @@ class TaskView extends Component {
     }
     loadModulesList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/module?projectId=" + projectId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/module?projectId=" + projectId);
         this.setState({ moduleData: arrData, isModuleFetchComplete: true })
     }
     loadTypesList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/type?projectId=" + projectId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/type?projectId=" + projectId);
         this.setState({ typeData: arrData, isTypeFetchComplete: true })
     }
     loadPrioritiesList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/priority?projectId=" + projectId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/priority?projectId=" + projectId);
         this.setState({ priorityData: arrData, isPriorityFetchComplete: true })
     }
     loadUserList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=smaller_and_equal&projectFilter=same");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=smaller_and_equal&projectFilter=same");
         this.setState({ userData: arrData, isUserFetchComplete: true })
     }
     loadSprintList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/sprint?projectId=" + projectId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/sprint?projectId=" + projectId);
         this.setState({ sprintData: arrData, isSprintFetchComplete: true })
     }
 
@@ -167,7 +167,7 @@ class TaskView extends Component {
         }  
         body.push(object)
         const http = new HttpHandler();
-        await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+        await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
         this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
       
@@ -184,7 +184,7 @@ class TaskView extends Component {
           }  
         body.push(object)
         const http = new HttpHandler();
-        await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+        await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
         this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
       
@@ -201,7 +201,7 @@ class TaskView extends Component {
           }  
         body.push(object)
         const http = new HttpHandler();
-        await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+        await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
         this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
@@ -215,7 +215,7 @@ class TaskView extends Component {
             "data": document.getElementById('tskview_inp_comment').value
           }
         const http = new HttpHandler();
-        await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+        await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
         this.popupRef.current.togglePopupNotificationDisplay("Successfully added comment" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
@@ -314,7 +314,7 @@ class TaskView extends Component {
                     "fieldValue": this.editObj.project
                 }
                 const http = new HttpHandler();
-                await http.httpPut("http://localhost:8081/api/task/" + this.state.taskData["TaskId"] , body)
+                await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/" + this.state.taskData["TaskId"] , body)
             }
         }
     }
@@ -331,7 +331,7 @@ class TaskView extends Component {
                 "fieldValue": this.editObj.module
             }
             const http = new HttpHandler();
-            await http.httpPut("http://localhost:8081/api/task/" + this.state.taskData["TaskId"] , body)
+            await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/" + this.state.taskData["TaskId"] , body)
         }
     }
     
@@ -347,7 +347,7 @@ class TaskView extends Component {
                 "fieldValue": this.editObj.type
             }
             const http = new HttpHandler();
-            await http.httpPut("http://localhost:8081/api/task/" + this.state.taskData["TaskId"] , body)
+            await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/" + this.state.taskData["TaskId"] , body)
         }
     }
 
@@ -363,7 +363,7 @@ class TaskView extends Component {
                 "fieldValue": this.editObj.priority
             }
             const http = new HttpHandler();
-            await http.httpPut("http://localhost:8081/api/task/" + this.state.taskData["TaskId"] , body)
+            await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/" + this.state.taskData["TaskId"] , body)
         }
     }
 
@@ -379,7 +379,7 @@ class TaskView extends Component {
                 "fieldValue": this.editObj.sprint
             }
             const http = new HttpHandler();
-            await http.httpPut("http://localhost:8081/api/task/" + this.state.taskData["TaskId"] , body)
+            await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/" + this.state.taskData["TaskId"] , body)
         }
         
     }
@@ -396,7 +396,7 @@ class TaskView extends Component {
                 "fieldValue": this.editObj.owner
             }
             const http = new HttpHandler();
-            await http.httpPut("http://localhost:8081/api/task/" + this.state.taskData["TaskId"] , body)            
+            await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/" + this.state.taskData["TaskId"] , body)            
         }
     }
 

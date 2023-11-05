@@ -32,7 +32,7 @@ class TaskBoard extends Component {
     }
     this.gridRef.showLoadingOverlay();
     const http = new HttpHandler();
-    let data = await http.httpGet("http://localhost:8081/api/task?taskFilter=TaskOwner&filterParam=" + res["STR_USERID"])
+    let data = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task?taskFilter=TaskOwner&filterParam=" + res["STR_USERID"])
     let finalData = []
     for (let index = 0; index < data.length; index++) 
     {
@@ -71,7 +71,7 @@ class TaskBoard extends Component {
       body.push(object)
     }
     const http = new HttpHandler();
-    await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+    await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
     this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
   }
   
@@ -93,7 +93,7 @@ class TaskBoard extends Component {
       body.push(object)
     }
     const http = new HttpHandler();
-    await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+    await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
     this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task for self-commit" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
   }
   
@@ -115,7 +115,7 @@ class TaskBoard extends Component {
       body.push(object)
     }
     const http = new HttpHandler();
-    await http.httpPut("http://localhost:8081/api/task/activityworkflow" , body)
+    await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
     this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task for self-delete" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
   }
 

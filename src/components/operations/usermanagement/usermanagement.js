@@ -34,7 +34,7 @@ class UserManagement extends Component
     async componentDidMount() {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/project?userId=" + res["STR_USERID"]);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
         this.setState({ isLoading: false, userProjectData: arrData });
     }
 
@@ -48,7 +48,7 @@ class UserManagement extends Component
         this.setState(obj)
         let userId = document.getElementById("opr_assign_user_sel").value
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/project?userId=" + userId + "&notmapped=true");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + userId + "&notmapped=true");
         this.setState({ isOtherProjectFetch: true, userOtherProjectData: arrData });
     }
 
@@ -63,7 +63,7 @@ class UserManagement extends Component
         this.setState(obj)
         let projId = document.getElementById("opr_deassign_proj_sel").value
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projId + "&roleFilter=small&projectFilter=same");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projId + "&roleFilter=small&projectFilter=same");
         this.setState({ ifUserFetchForDeAssign: true, userDeAssignData: arrData });
     }
 
@@ -80,7 +80,7 @@ class UserManagement extends Component
         this.setState(obj)
         let projId = document.getElementById("opr_assign_proj_sel").value
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projId + "&roleFilter=small&projectFilter=same");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projId + "&roleFilter=small&projectFilter=same");
         this.setState({ ifUserFetchForAssign: true, userAssignData: arrData });
     }
 
@@ -91,7 +91,7 @@ class UserManagement extends Component
             "projectId": document.getElementById("opr_assign_sel_othproject").value
           }
         const http = new HttpHandler();
-        await http.httpPost("http://localhost:8081/api/userprojectmap" , body);
+        await http.httpPost(res["STR_API_BASEPATH"] + "/api/userprojectmap" , body);
     }
 
     updateUserDeAssignment = async(e) => {
@@ -101,7 +101,7 @@ class UserManagement extends Component
             "projectId": document.getElementById("opr_deassign_proj_sel").value
           }
         const http = new HttpHandler();
-        await http.httpDelete("http://localhost:8081/api/userprojectmap" , body);
+        await http.httpDelete(res["STR_API_BASEPATH"] + "/api/userprojectmap" , body);
     }
 
     render() 

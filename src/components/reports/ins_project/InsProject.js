@@ -25,7 +25,7 @@ class InsProject extends Component {
         }
         this.gridRef.showLoadingOverlay();
         const http = new HttpHandler();
-        let projectData = await http.httpGet("http://localhost:8081/api/project");
+        let projectData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project");
         if (projectData.length == 0) {
             this.gridRef.showNoRowsOverlay()
         }

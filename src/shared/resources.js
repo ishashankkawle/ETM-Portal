@@ -87,7 +87,8 @@ let res = {
     "SECURITY_ACCESS" : "PERM_ALL_ORG_SECURITY"
   },
 
-  "STR_BASEPATH": "http://localhost:8081/api",
+
+  "STR_API_BASEPATH": "http://localhost:8081",
   "PostgresConnection": "postgres://uuktnljs:Bd-dHv74TDkC-XcBp5Sp-du4xiomzwo1@drona.db.elephantsql.com:5432/uuktnljs",
   "MongoClusterConnection": "mongodb+srv://ets_admin:adreno%40123@tsstaskcluster.8gnng.mongodb.net/ETMHistoryDatabase"
 

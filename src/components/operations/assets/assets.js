@@ -38,7 +38,7 @@ class Assets extends Component
     {
         this.setState({isLoading : true});
         let http = new HttpHandler();
-        let arrProjData = await http.httpGet("http://localhost:8081/api/project?userId=" + res["STR_USERID"]);
+        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
         this.setState({isLoading : false , projData : arrProjData});
     }
 
@@ -50,7 +50,7 @@ class Assets extends Component
         let projId = document.getElementById("opr_asset_proj_sel").value
         let assetName = document.getElementById("opr_asset_inp_name").value
         let body = {}
-        let url = "http://localhost:8081/api"
+        let url = res["STR_API_BASEPATH"] + "/api"
         if(assetType === "module")
         {
             url = url + "/module"
@@ -107,7 +107,7 @@ class Assets extends Component
     {
         this.moduleGridRef.showLoadingOverlay()
         let http = new HttpHandler();
-        let arrModuleData = await http.httpGet("http://localhost:8081/api/module?projectId=" + projectId); 
+        let arrModuleData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/module?projectId=" + projectId); 
         if (arrModuleData.length == 0) 
         {
             this.moduleGridRef.showNoRowsOverlay();
@@ -122,7 +122,7 @@ class Assets extends Component
     {
         this.typeGridRef.showLoadingOverlay()
         let http = new HttpHandler();
-        let arrTypeData = await http.httpGet("http://localhost:8081/api/type?projectId=" + projectId); 
+        let arrTypeData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/type?projectId=" + projectId); 
         if (arrTypeData.length == 0) 
         {
             this.typeGridRef.showNoRowsOverlay();
@@ -137,7 +137,7 @@ class Assets extends Component
     {
         this.priorityGridRef.showLoadingOverlay()
         let http = new HttpHandler();
-        let arrPriorityData = await http.httpGet("http://localhost:8081/api/priority?projectId=" + projectId); 
+        let arrPriorityData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/priority?projectId=" + projectId); 
         if (arrPriorityData.length == 0) 
         {
             this.priorityGridRef.showNoRowsOverlay();

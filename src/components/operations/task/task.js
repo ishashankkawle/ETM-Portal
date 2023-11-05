@@ -45,7 +45,7 @@ class Task extends Component {
     async componentDidMount() {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrProjData = await http.httpGet("http://localhost:8081/api/project?userId=" + res["STR_USERID"]);
+        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
         this.setState({ isLoading: false, projData: arrProjData });
     }
     
@@ -76,7 +76,7 @@ class Task extends Component {
             "priority": priority
           }
         const http = new HttpHandler();
-        await http.httpPost("http://localhost:8081/api/task" , body);
+        await http.httpPost(res["STR_API_BASEPATH"] + "/api/task" , body);
         this.popupRef.current.togglePopupNotificationDisplay("Successfully created new task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
@@ -86,7 +86,7 @@ class Task extends Component {
         }
         this.gridRef.showLoadingOverlay();
         const http = new HttpHandler();
-        let data = await http.httpGet("http://localhost:8081/api/task?taskFilter=TaskAssigner&filterParam=" + res["STR_USERID"])
+        let data = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task?taskFilter=TaskAssigner&filterParam=" + res["STR_USERID"])
         if (data.length == 0) {
             this.gridRef.showNoRowsOverlay()
         }
@@ -127,27 +127,27 @@ class Task extends Component {
     }
     loadModulesList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/module?projectId=" + projectId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/module?projectId=" + projectId);
         this.setState({moduleData : arrData , isModuleFetchComplete : true})
     }
     loadTypesList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/type?projectId=" + projectId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/type?projectId=" + projectId);
         this.setState({typeData : arrData , isTypeFetchComplete : true})
     }
     loadPrioritiesList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/priority?projectId=" + projectId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/priority?projectId=" + projectId);
         this.setState({priorityData : arrData , isPriorityFetchComplete : true})
     }
     loadUserList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=smaller_and_equal&projectFilter=same");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=smaller_and_equal&projectFilter=same");
         this.setState({userData : arrData , isUserFetchComplete : true})
     }
     loadSprintList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet("http://localhost:8081/api/sprint?projectId=" + projectId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/sprint?projectId=" + projectId);
         this.setState({sprintData : arrData , isSprintFetchComplete : true})
     }
 

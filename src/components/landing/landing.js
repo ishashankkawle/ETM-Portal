@@ -24,7 +24,7 @@ class Landing extends Component {
   async componentDidMount() {
     this.setState({ isLoading: true });
     let http = new HttpHandler();
-    let arrData = await http.httpGet("http://localhost:8081/api/user/" + res["STR_USERID"]);
+    let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user/" + res["STR_USERID"]);
     res["USERDATA"]["STR_CONTACT"] = arrData[0]["Contact"]
     res["USERDATA"]["STR_DOB"] = arrData[0]["DOB"]
     res["USERDATA"]["STR_EMAIL"] = arrData[0]["Email"]
