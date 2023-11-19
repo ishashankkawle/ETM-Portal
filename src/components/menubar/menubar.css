@@ -12,6 +12,12 @@
     padding-bottom: 6%;
 }
 
+.menu-sub-tab
+{
+    text-decoration: none;
+    display: inline;
+}
+
 .menu-item
 {
     text-decoration: none;
@@ -24,7 +30,7 @@
 }
 
 @media only screen and (max-width: 900px) {
-    .menu-primary {
+    .menu-sub-tab {
         display: none;
     }
 }

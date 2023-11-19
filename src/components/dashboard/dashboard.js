@@ -35,14 +35,14 @@ class Dashboard extends Component {
     {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
+        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["USERDATA"]["STR_USERID"]);
         this.setState({isLoading: false , projData : arrProjData});
     }
 
     loadSummary = async(projectId) =>
     {
         let http = new HttpHandler();
-        let summaryObject = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/summary?userId=" + res["STR_USERID"] + "&asOwner=true&projectId=" + projectId); 
+        let summaryObject = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/summary?userId=" + res["USERDATA"]["STR_USERID"] + "&asOwner=true&projectId=" + projectId); 
         this.setState({summaryData : summaryObject})
     }
     
@@ -65,7 +65,7 @@ class Dashboard extends Component {
     loadUpdates = async(projectId) =>
     {
         let http = new HttpHandler();
-        let updateArray = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/summary/details?userId=" + res["STR_USERID"] + "&asOwner=true&projectId=" + projectId); 
+        let updateArray = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/summary/details?userId=" + res["USERDATA"]["STR_USERID"] + "&asOwner=true&projectId=" + projectId); 
         let updateObject = {
             "NEW" : 0,
             "IN_PROGRESS" : 0,
@@ -404,7 +404,7 @@ class Dashboard extends Component {
     
                     <div className="row justify-content-between">
     
-                        <div className="col-3">
+                        <div className="col-xl-3 col-md-6">
                             <form>
                                 <div className="mb-3">
                                     <select className="form-select mb-3 dashboard-form-field" id="opr_dashboard_proj_sel" onChange={(e) => this.loadProjectDashboard(e)}>
@@ -413,7 +413,7 @@ class Dashboard extends Component {
                                 </div>
                             </form>
                         </div>
-                        <div className="col-3 dashboard-form-field" style={{paddingTop : "0.5%"}}>
+                        <div className="col-xl-3 col-md-6 dashboard-form-field" style={{paddingTop : "0.5%"}}>
                             <b style={{ color: 'var(--text-secondary)', fontSize: 'smaller' }}>Total Assigned Projects : {this.state.projData.length}</b>
                         </div>
                     </div>

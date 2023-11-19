@@ -17,10 +17,11 @@ import Role from './components/operations/role/role';
 import RoleAssignment from './components/operations/roleassignment/roleassignment';
 import Security from './components/operations/security/security';
 import UserDelete from './components/operations/userdelete/userdelete';
-import NoAccess from './components/no-access/no-access';
 import TaskView from './components/taskview/taskview';
 import InsProject from './components/reports/ins_project/InsProject';
 import InsTask from './components/reports/ins_task/InsTask';
+import ProtectedRoutes from './components/protected-routes/protected-routes';
+import res from './shared/resources';
 
 
 
@@ -31,29 +32,31 @@ class App extends Component {
     super(props)
   }
 
-  render() {
+  render() {    
+
+    console.log("Inside App , auth value = " + res["USERDATA"]["STR_USER_AUTH_COMPLETED"])
     return (
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login />} />
-          <Route exact path="/app" element={<Landing />}>
-            <Route index element={<Dashboard />} />
-            <Route path="taskboard" element={<TaskBoard />} />
-            <Route path="verification" element={<Verification />} />
-            <Route path="operations/project" element={<Project />} />
-            <Route path="operations/task" element={<Task />} />
-            <Route path="operations/usermanagement" element={<UserManagement />} />
-            <Route path="operations/user" element={<User />} />
-            <Route path="operations/assets" element={<Assets />} />
-            <Route path="operations/insights" element={<Insights />} />
-            <Route path="operations/role" element={<Role />} />
-            <Route path="operations/roleassignment" element={<RoleAssignment />} />
-            <Route path="operations/security" element={<Security />} />
-            <Route path="operations/userdelete" element={<UserDelete />} />
-            <Route path="insight/project" element={<InsProject />} />
-            <Route path="insight/task" element={<InsTask />} />
-          </Route>
-          <Route path="/taskview/:id" element={<TaskView />} />
+            <Route exact path="/app" element={ <ProtectedRoutes route=<Landing /> />}>
+              <Route index element={<ProtectedRoutes route=<Dashboard /> />} /> 
+              <Route path="taskboard" element={ <ProtectedRoutes route=<TaskBoard /> />} /> 
+              <Route path="verification" element={<ProtectedRoutes route=<Verification /> />} /> 
+              <Route path="operations/project" element={<ProtectedRoutes route=<Project /> />} /> 
+              <Route path="operations/task" element={<ProtectedRoutes route=<Task /> />} /> 
+              <Route path="operations/usermanagement" element={<ProtectedRoutes route=<UserManagement /> />} />
+              <Route path="operations/user" element={<ProtectedRoutes route=<User /> />} />
+              <Route path="operations/assets" element={<ProtectedRoutes route=<Assets /> />} /> 
+              <Route path="operations/insights" element={<ProtectedRoutes route= <Insights /> />} /> 
+              <Route path="operations/role" element={<ProtectedRoutes route=<Role /> />} />
+              <Route path="operations/roleassignment" element={<ProtectedRoutes route=<RoleAssignment /> />} />
+              <Route path="operations/security" element={<ProtectedRoutes route=<Security /> />} />
+              <Route path="operations/userdelete" element={<ProtectedRoutes route=<UserDelete /> />} />
+              <Route path="insight/project" element={<ProtectedRoutes route=<InsProject /> />} /> 
+              <Route path="insight/task" element={<ProtectedRoutes route=<InsTask /> />} /> 
+            </Route>
+            <Route path="/taskview/:id" element={<TaskView />} /> 
         </Routes>
       </BrowserRouter>
     )

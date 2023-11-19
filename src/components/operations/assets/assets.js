@@ -38,7 +38,7 @@ class Assets extends Component
     {
         this.setState({isLoading : true});
         let http = new HttpHandler();
-        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
+        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["USERDATA"]["STR_USERID"]);
         this.setState({isLoading : false , projData : arrProjData});
     }
 

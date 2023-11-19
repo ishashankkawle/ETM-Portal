@@ -45,7 +45,7 @@ class Task extends Component {
     async componentDidMount() {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
+        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["USERDATA"]["STR_USERID"]);
         this.setState({ isLoading: false, projData: arrProjData });
     }
     
@@ -59,7 +59,7 @@ class Task extends Component {
         let taskDesc = document.getElementById("opr_task_inp_desc").value
         let sprintId = document.getElementById("opr_task_sel_sprint").value
         let owner = document.getElementById("opr_task_sel_user").value
-        let assigner = res["STR_USERID"]
+        let assigner = res["USERDATA"]["STR_USERID"]
         let type = document.getElementById("opr_task_sel_type").value
         let priority = document.getElementById("opr_task_sel_priority").value
 
@@ -86,7 +86,7 @@ class Task extends Component {
         }
         this.gridRef.showLoadingOverlay();
         const http = new HttpHandler();
-        let data = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task?taskFilter=TaskAssigner&filterParam=" + res["STR_USERID"])
+        let data = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task?taskFilter=TaskAssigner&filterParam=" + res["USERDATA"]["STR_USERID"])
         if (data.length == 0) {
             this.gridRef.showNoRowsOverlay()
         }
@@ -142,7 +142,7 @@ class Task extends Component {
     }
     loadUserList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=smaller_and_equal&projectFilter=same");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["USERDATA"]["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=smaller_and_equal&projectFilter=same");
         this.setState({userData : arrData , isUserFetchComplete : true})
     }
     loadSprintList = async (projectId) => {

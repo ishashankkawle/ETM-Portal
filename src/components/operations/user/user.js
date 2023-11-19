@@ -4,7 +4,7 @@ import  './user.css'
 import res from "../../../shared/resources";
 import HttpHandler from "../../../core/httpHandler";
 import { getLoader } from "../../loader/loader";
-import { getSelectOptionsList } from "../../../core/util";
+import { getSelectOptionObjectList, getSelectOptionsList } from "../../../core/util";
 import PopupNotification from "../../popup/popup";
 
 class User extends Component 
@@ -23,7 +23,7 @@ class User extends Component
     async componentDidMount() {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/role/small?userroleid=" + res["STR_ROLEID"]);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/role/small?userroleid=" + res["USERDATA"]["STR_ROLEID"]);
         this.setState({ isLoading: false, roleData: arrData });
     }
 
@@ -36,7 +36,7 @@ class User extends Component
         let dob =  document.getElementById("opr_user_inp_dob").value;
         let email =  document.getElementById("opr_user_inp_email").value;
         let password = document.getElementById("opr_user_inp_password").value;
-        let securityLevel = document.getElementById("opr_user_sel_role").value;
+        let role = JSON.parse(document.getElementById("opr_user_sel_role").value);
         let projectId = res["DEFAULTS"]["STR_PROJECT_ID"]
     
         let body = {
@@ -46,7 +46,7 @@ class User extends Component
             "email": email,
             "username": email,
             "password": password,
-            "securityLevel": securityLevel,
+            "role": role,
             "projectId": projectId
           }
 
@@ -57,7 +57,8 @@ class User extends Component
 
     render() {
 
-        let roleOption = getSelectOptionsList(this.state.roleData , "SecurityLevel" , "RoleName" , true , "Select Role")
+        //let roleOption = getSelectOptionsList(this.state.roleData , "SecurityLevel" , "RoleName" , true , "Select Role")
+        let roleOption = getSelectOptionObjectList(this.state.roleData , ["SecurityLevel" , "RoleId"] , "RoleName" , true , "Select Role")
 
         if(this.state.isLoading)
         {

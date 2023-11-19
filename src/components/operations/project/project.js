@@ -7,6 +7,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import res from '../../../shared/resources';
 import HttpHandler from "../../../core/httpHandler";
 import Loader, { getLoader } from "../../loader/loader";
+import PopupNotification from "../../popup/popup";
 
 class Project extends Component {
 
@@ -14,6 +15,7 @@ class Project extends Component {
     {
         super();
         this.gridRef = "";
+        this.popupRef = React.createRef();
         this.initializeGrid = this.initializeGrid.bind(this);
         this.createNewProject = this.createNewProject.bind(this);
     }
@@ -27,7 +29,7 @@ class Project extends Component {
         }
         this.gridRef.showLoadingOverlay();
         const http = new HttpHandler();
-        let projectData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
+        let projectData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["USERDATA"]["STR_USERID"]);
         if(projectData.length == 0)
         {
             this.gridRef.showNoRowsOverlay()
@@ -41,13 +43,15 @@ class Project extends Component {
 
     createNewProject = async(e) => 
     {
+        this.popupRef.current.togglePopupNotificationDisplay("Creating new project ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
         e.preventDefault();
         let body = {
                 "title" : document.getElementById("opr_proj_inp_name").value,
-                "userId" : res["STR_USERID"]
+                "userId" : res["USERDATA"]["STR_USERID"]
         };
         const http = new HttpHandler();
         await http.httpPost(res["STR_API_BASEPATH"] + "/api/project" , body);
+        this.popupRef.current.togglePopupNotificationDisplay("Successfully created project" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
     render() {
@@ -92,6 +96,7 @@ class Project extends Component {
                     <AgGridReact defaultColDef={defaultProjectColDef} rowData={this.projectData} columnDefs={projectListHeaders} loadingOverlayComponent={Loader} onGridReady={this.initializeGrid}></AgGridReact>
                 </div>
 
+                <PopupNotification ref={this.popupRef}/>
             </div>
         )
     }

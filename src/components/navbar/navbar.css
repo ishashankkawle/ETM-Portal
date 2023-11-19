@@ -32,5 +32,35 @@
 }
 
 .nav-brand-img {
-    width: 15%;
+    display: inline;
+    width: 15%
+}
+
+.nav-brand-text
+{
+    display: block;
+}
+
+.nav-brand-block
+{
+    display: inline;
+}
+
+@media only screen and (max-width: 900px) {
+    .nav-brand-text {
+        display: none;
+    }
+    .nav-brand-img {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .nav-brand-img {
+        display: none;
+    }
+    .nav-brand-block{
+        display: none !important;
+    }
 }

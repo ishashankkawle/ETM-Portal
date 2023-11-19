@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Info } from "react-feather";
 import './roleassignment.css'
-import { getSelectOptionsList } from "../../../core/util";
+import { getSelectOptionObjectList, getSelectOptionsList } from "../../../core/util";
 import { getLoader } from "../../loader/loader";
 import HttpHandler from "../../../core/httpHandler";
 import res from "../../../shared/resources";
@@ -30,7 +30,7 @@ class RoleAssignment extends Component {
     async componentDidMount() {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
+        let arrProjData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["USERDATA"]["STR_USERID"]);
         this.setState({ isLoading: false, projData: arrProjData });
     }
 
@@ -48,7 +48,7 @@ class RoleAssignment extends Component {
         this.setState(obj)
         let projectId = document.getElementById("opr_roleassignment_proj_sel").value;
         let http = new HttpHandler();
-        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=small");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["USERDATA"]["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=small");
         this.setState({userData : arrData , isUserFetchComplete : true })
     }
 
@@ -56,13 +56,45 @@ class RoleAssignment extends Component {
         this.setState({isUserSelected: true,})
         let userId = document.getElementById("opr_roleassignment_user_sel").value;
         let http = new HttpHandler();
-        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/role/validlist?updaterroleid=" + res["STR_USERID"] + "&userroleid=" + userId);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/role/validlist?updaterroleid=" + res["USERDATA"]["STR_USERID"] + "&userroleid=" + userId);
         this.setState({roleData : arrData , isRoleFetchComplete : true})
     }
 
     updateRoleAssignment = async(e) =>
     {
         this.popupRef.current.togglePopupNotificationDisplay("Updating role assignment ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
+        e.preventDefault();
+        let userId =  document.getElementById("opr_roleassignment_user_sel").value;
+        let role = JSON.parse(document.getElementById("opr_roleassignment_role_sel").value);
+        const http = new HttpHandler();
+    
+        let body = {
+            "userId": userId,
+            "field": "RoleId",
+            "fieldValue": role.RoleId,
+            "isSecret": "false"
+          }
+          
+        try {
+            await http.httpPut(res["STR_API_BASEPATH"] + "/api/user/" + userId, body);
+        } 
+        catch (error) {
+            
+        }
+          
+          body = {
+              "userId": userId,
+              "field": "SecurityLevel",
+              "fieldValue": role.SecurityLevel,
+              "isSecret": "false"
+            }
+
+        try {
+            await http.httpPut(res["STR_API_BASEPATH"] + "/api/user/" + userId, body);
+        } 
+        catch (error) {
+            
+        }
         this.popupRef.current.togglePopupNotificationDisplay("Successfully updated role assignments" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
@@ -96,7 +128,7 @@ class RoleAssignment extends Component {
             }
             if(this.state.isRoleFetchComplete)
             {
-                roleOption = getSelectOptionsList(this.state.roleData , "RoleId" , "RoleName" , true , "Select Role");
+                roleOption = getSelectOptionObjectList(this.state.roleData , ["SecurityLevel" , "RoleId"] , "RoleName" , true , "Select Role");
             }
             else
             {
@@ -130,7 +162,7 @@ class RoleAssignment extends Component {
                                         <select className="form-select mt-3 mb-3" id="opr_roleassignment_user_sel" onChange={this.loadRoleList}>
                                             {userOption}
                                         </select>
-                                        <select className="form-select mt-3 mb-3">
+                                        <select className="form-select mt-3 mb-3" id="opr_roleassignment_role_sel">
                                             {roleOption}
                                         </select>
                                     </div>

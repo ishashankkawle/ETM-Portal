@@ -4,11 +4,12 @@ import { HelpCircle, Sun, Search, Moon, ChevronDown, User, Power, MoreHorizontal
 import './navbar.css'
 import { NavLink } from "react-router-dom";
 import res from "../../shared/resources";
+import { getRandomColor } from "../../core/util";
 
 class Navbar extends Component {
 
     getInitials = () => {
-        let arrStr = res["STR_USERNAME"].split(" ")
+        let arrStr = res["USERDATA"]["STR_USERNAME"].split(" ")
         let returnValue = ""
         if (arrStr.length == "1") {
             returnValue =  arrStr[0].charAt(0).toUpperCase()
@@ -20,7 +21,7 @@ class Navbar extends Component {
     render() {
 
         const initials = this.getInitials();
-        const username = res["STR_USERNAME"]
+        const username = res["USERDATA"]["STR_USERNAME"]
         let themeIcon = null;
 
         if (this.theme == undefined) {
@@ -32,8 +33,8 @@ class Navbar extends Component {
         return (
             <ul className="nav justify-content-end">
                 <li className="nav-item nav-brand-logo p-1 d-flex align-items-center">
-                    <div className="text-start d-flex justify-content-between">
-                        <div className="px-2 d-flex align-items-center"><img src={logo} className="nav-brand-img me-2" />Laniak</div> 
+                    <div className="text-start d-flex justify-content-between ">
+                        <div className="px-2 d-flex align-items-center nav-brand-block"><img src={logo} className="nav-brand-img me-2" /> <span className="nav-brand-text">Laniak</span></div> 
                         <div onClick={this.props.toggleMenu} className="d-flex align-items-center p-3"><MoreHorizontal size="18"/></div>
                     </div>
                 </li>
@@ -50,7 +51,7 @@ class Navbar extends Component {
                     {themeIcon}
                 </li>
                 <li className="nav-item nav-link p-2 d-flex align-items-center justify-content-center">
-                    <div className="avatar" >{initials}</div>
+                    <div className="avatar" style={{ backgroundColor : getRandomColor() , color: '#FFF'}}>{initials}</div>
                 </li>
                 <li className="nav-item nav-link p-1 d-flex align-items-center justify-content-center">
                     <span className="nav-profile-primary ">{username}</span>

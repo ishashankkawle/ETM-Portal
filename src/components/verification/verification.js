@@ -37,7 +37,7 @@ class Verification extends Component {
 
     async componentDidMount() {
         let http = new HttpHandler();
-        let summData = this.populateSummaryCount(await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/summary/details?userId=" + res["STR_USERID"] + "&asOwner=false"));
+        let summData = this.populateSummaryCount(await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/summary/details?userId=" + res["USERDATA"]["STR_USERID"] + "&asOwner=false"));
         this.setState(() => {
             //return {summaryCountObject : summData ,dataVerificationCommit : arrVerifCommit , dataVerificationDelete : arrVerifDelete}
             return {summaryCountObject : summData}
@@ -52,8 +52,8 @@ class Verification extends Component {
         {
           let object = {
               "taskId": arrData[index]["TaskId"],
-              "userId": res["STR_USERID"],
-              "userName": res["STR_USERNAME"],
+              "userId": res["USERDATA"]["STR_USERID"],
+              "userName": res["USERDATA"]["STR_USERNAME"],
               "updateType": "workflow",
               "currentWorkflowState": arrData[index]["TaskStatus"],
               "newWorkflowState": res["WORKFLOW"]["STR_WF_COMPLETE"]
@@ -72,8 +72,8 @@ class Verification extends Component {
         {
           let object = {
               "taskId": arrData[index]["TaskId"],
-              "userId": res["STR_USERID"],
-              "userName": res["STR_USERNAME"],
+              "userId": res["USERDATA"]["STR_USERID"],
+              "userName": res["USERDATA"]["STR_USERNAME"],
               "updateType": "workflow",
               "currentWorkflowState": arrData[index]["TaskStatus"],
               "newWorkflowState": res["WORKFLOW"]["STR_WF_DELETE"]
@@ -92,8 +92,8 @@ class Verification extends Component {
         {
           let object = {
               "taskId": arrData[index]["TaskId"],
-              "userId": res["STR_USERID"],
-              "userName": res["STR_USERNAME"],
+              "userId": res["USERDATA"]["STR_USERID"],
+              "userName": res["USERDATA"]["STR_USERNAME"],
               "updateType": "workflow",
               "currentWorkflowState": arrData[index]["TaskStatus"],
               "newWorkflowState": getPreviousWorkflowStatus(arrData[index]["TaskStatus"])
@@ -112,8 +112,8 @@ class Verification extends Component {
         {
           let object = {
               "taskId": arrData[index]["TaskId"],
-              "userId": res["STR_USERID"],
-              "userName": res["STR_USERNAME"],
+              "userId": res["USERDATA"]["STR_USERID"],
+              "userName": res["USERDATA"]["STR_USERNAME"],
               "updateType": "workflow",
               "currentWorkflowState": arrData[index]["TaskStatus"],
               "newWorkflowState": getPreviousWorkflowStatus(arrData[index]["TaskStatus"])
@@ -162,7 +162,7 @@ class Verification extends Component {
         }
         this.asgGridRef.showLoadingOverlay();
         let http = new HttpHandler();
-        let dataAssignmentSummary = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/rcs_util?userId=" + res["STR_USERID"] + "&summary=false");
+        let dataAssignmentSummary = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/rcs_util?userId=" + res["USERDATA"]["STR_USERID"] + "&summary=false");
         if (dataAssignmentSummary.length == 0) 
         {
             this.asgGridRef.showNoRowsOverlay();
@@ -181,7 +181,7 @@ class Verification extends Component {
         }
         this.rcsGridRef.showLoadingOverlay();
         let http = new HttpHandler();
-        let arrRCSData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/rcs_util?userId=" + res["STR_USERID"] + "&summary=true");
+        let arrRCSData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/rcs_util?userId=" + res["USERDATA"]["STR_USERID"] + "&summary=true");
         let dataRCSSummary = this.populateResourceConsumptionData(arrRCSData)
         if (dataRCSSummary.length == 0) 
         {
@@ -202,7 +202,7 @@ class Verification extends Component {
         }
         this.verCommitGridRef.showLoadingOverlay();
         let http = new HttpHandler();
-        let arrVerifCommit = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/verification/commit?userId=" + res["STR_USERID"]);
+        let arrVerifCommit = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/verification/commit?userId=" + res["USERDATA"]["STR_USERID"]);
         if (arrVerifCommit.length == 0) 
         {
             this.verCommitGridRef.showNoRowsOverlay();
@@ -222,7 +222,7 @@ class Verification extends Component {
         }
         this.verDeleteGridRef.showLoadingOverlay();
         let http = new HttpHandler();
-        let arrVerifDelete = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/verification/delete?userId=" + res["STR_USERID"]);
+        let arrVerifDelete = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/verification/delete?userId=" + res["USERDATA"]["STR_USERID"]);
         if (arrVerifDelete.length == 0) 
         {
             this.verDeleteGridRef.showNoRowsOverlay();

@@ -5,11 +5,14 @@ import res from "../../../shared/resources";
 import HttpHandler from "../../../core/httpHandler";
 import { getLoader } from "../../loader/loader";
 import { getSelectOptionsList } from "../../../core/util";
+import PopupNotification from "../../popup/popup";
 
 class UserManagement extends Component 
 {
     constructor(props) {
         super(props);
+
+        this.popupRef = React.createRef();
         this.state = {
             isLoading: false,
             userProjectData: [],
@@ -34,7 +37,7 @@ class UserManagement extends Component
     async componentDidMount() {
         this.setState({ isLoading: true });
         let http = new HttpHandler();
-        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["USERDATA"]["STR_USERID"]);
         this.setState({ isLoading: false, userProjectData: arrData });
     }
 
@@ -63,7 +66,7 @@ class UserManagement extends Component
         this.setState(obj)
         let projId = document.getElementById("opr_deassign_proj_sel").value
         let http = new HttpHandler();
-        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projId + "&roleFilter=small&projectFilter=same");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["USERDATA"]["STR_USERID"] + "&projectId=" + projId + "&roleFilter=small&projectFilter=same");
         this.setState({ ifUserFetchForDeAssign: true, userDeAssignData: arrData });
     }
 
@@ -80,11 +83,12 @@ class UserManagement extends Component
         this.setState(obj)
         let projId = document.getElementById("opr_assign_proj_sel").value
         let http = new HttpHandler();
-        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projId + "&roleFilter=small&projectFilter=same");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["USERDATA"]["STR_USERID"] + "&projectId=" + projId + "&roleFilter=small&projectFilter=same");
         this.setState({ ifUserFetchForAssign: true, userAssignData: arrData });
     }
 
     updateUserAssignment = async(e) => {
+        this.popupRef.current.togglePopupNotificationDisplay("Updating user assignment ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
         e.preventDefault();
         let body = {
             "userId": document.getElementById("opr_assign_user_sel").value,
@@ -92,9 +96,11 @@ class UserManagement extends Component
           }
         const http = new HttpHandler();
         await http.httpPost(res["STR_API_BASEPATH"] + "/api/userprojectmap" , body);
+        this.popupRef.current.togglePopupNotificationDisplay("Successfully updated user assignment" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
     updateUserDeAssignment = async(e) => {
+        this.popupRef.current.togglePopupNotificationDisplay("Updating user assignment ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
         e.preventDefault();
         let body = {
             "userId": document.getElementById("opr_deassign_sel_user").value,
@@ -102,6 +108,7 @@ class UserManagement extends Component
           }
         const http = new HttpHandler();
         await http.httpDelete(res["STR_API_BASEPATH"] + "/api/userprojectmap" , body);
+        this.popupRef.current.togglePopupNotificationDisplay("Successfully updated user assignment" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
     render() 
@@ -248,6 +255,8 @@ class UserManagement extends Component
                             </div>
                         </div>
                     </div>
+
+                    <PopupNotification ref={this.popupRef}/>
                 </div>
 
             )

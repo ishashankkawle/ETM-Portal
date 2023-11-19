@@ -32,7 +32,7 @@ class TaskBoard extends Component {
     }
     this.gridRef.showLoadingOverlay();
     const http = new HttpHandler();
-    let data = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task?taskFilter=TaskOwner&filterParam=" + res["STR_USERID"])
+    let data = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task?taskFilter=TaskOwner&filterParam=" + res["USERDATA"]["STR_USERID"])
     let finalData = []
     for (let index = 0; index < data.length; index++) 
     {
@@ -62,8 +62,8 @@ class TaskBoard extends Component {
     {
       let object = {
           "taskId": arrData[index]["TaskId"],
-          "userId": res["STR_USERID"],
-          "userName": res["STR_USERNAME"],
+          "userId": res["USERDATA"]["STR_USERID"],
+          "userName": res["USERDATA"]["STR_USERNAME"],
           "updateType": "workflow",
           "currentWorkflowState": arrData[index]["TaskStatus"],
           "newWorkflowState": getNextWorkflowStatus(arrData[index]["TaskStatus"])
@@ -84,8 +84,8 @@ class TaskBoard extends Component {
     {
       let object = {
           "taskId": arrData[index]["TaskId"],
-          "userId": res["STR_USERID"],
-          "userName": res["STR_USERNAME"],
+          "userId": res["USERDATA"]["STR_USERID"],
+          "userName": res["USERDATA"]["STR_USERNAME"],
           "updateType": "workflow",
           "currentWorkflowState": arrData[index]["TaskStatus"],
           "newWorkflowState": res["WORKFLOW"]["STR_WF_SELFCOMMIT"]
@@ -106,8 +106,8 @@ class TaskBoard extends Component {
     {
       let object = {
           "taskId": arrData[index]["TaskId"],
-          "userId": res["STR_USERID"],
-          "userName": res["STR_USERNAME"],
+          "userId": res["USERDATA"]["STR_USERID"],
+          "userName": res["USERDATA"]["STR_USERNAME"],
           "updateType": "workflow",
           "currentWorkflowState": arrData[index]["TaskStatus"],
           "newWorkflowState": res["WORKFLOW"]["STR_WF_SELFDELETE"]

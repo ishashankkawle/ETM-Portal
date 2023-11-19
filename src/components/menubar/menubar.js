@@ -7,20 +7,20 @@ import res from "../../shared/resources";
 class Menubar extends Component {
     render() {
         let arrLinks = []
-        let arrPermissions = res["USERDATA"]["STR_PERMISSIONS"].split(",")
+        let arrPermissions = res["USERDATA"]["STR_PERMISSIONS"]
 
         for (let index = 0; index < arrPermissions.length; index++) 
         {
             if(arrPermissions[index] == res["PERMISSIONS"]["PROJECT_ACCESS"])
             {
                 arrLinks.push(
-                    <div key="t1" className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/project" exact="true"><Flag size="18" className="me-2" /> Project </NavLink>
+                    <div key="2" className="menu-sub-primary">
+                        <NavLink className="menu-item"  to="/app/operations/project" exact="true"><Flag size="18" className="me-2" /> <span className="menu-sub-tab"> Project </span> </NavLink>
                     </div>
                 )
                 arrLinks.push(
-                    <div key="t2" className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/assets" exact="true"><Box size="18" className="me-2" /> Assets </NavLink>
+                    <div key="3" className="menu-sub-primary">
+                        <NavLink className="menu-item"  to="/app/operations/assets" exact="true"><Box size="18" className="me-2" /> <span className="menu-sub-tab"> Assets </span></NavLink>
                     </div>
                 )
             }
@@ -28,8 +28,13 @@ class Menubar extends Component {
             if(arrPermissions[index] == res["PERMISSIONS"]["TASK_ACCESS"])
             {
                 arrLinks.push(
-                    <div key="t3" className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/task" exact="true"><Clipboard size="18" className="me-2" /> Task </NavLink>
+                    <div key="1" className="menu-sub-primary">
+                        <NavLink className="menu-item"  to="/app" exact="true"><Home size="18" className="me-2" /> <span className="menu-sub-tab"> Dashboard </span></NavLink>
+                    </div>
+                )
+                arrLinks.push(
+                    <div key="4" className="menu-sub-primary">
+                        <NavLink className="menu-item" to="/app/operations/task" exact="true"><Clipboard size="18" className="me-2" /> <span className="menu-sub-tab"> Task </span></NavLink>
                     </div>
                 )
             }
@@ -37,8 +42,8 @@ class Menubar extends Component {
             if(arrPermissions[index] == res["PERMISSIONS"]["REPPORT_ACCESS"])
             {
                 arrLinks.push(
-                    <div className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/insights" exact="true"><BarChart2 size="18" className="me-2" /> Insights </NavLink>
+                    <div key="9" className="menu-sub-primary">
+                        <NavLink className="menu-item" key="4" to="/app/operations/insights" exact="true"><BarChart2 size="18" className="me-2" /> <span className="menu-sub-tab"> Insights </span></NavLink>
                     </div>
                 )
             }
@@ -47,14 +52,14 @@ class Menubar extends Component {
             if(arrPermissions[index] == res["PERMISSIONS"]["SECURITY_ACCESS"])
             {
                 arrLinks.push(
-                    <div key="t6" className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/role" exact="true"><Key size="18" className="me-2" /> Role </NavLink>
+                    <div key="10" className="menu-sub-primary">
+                        <NavLink className="menu-item"  to="/app/operations/role" exact="true"><Key size="18" className="me-2" /> <span className="menu-sub-tab"> Role </span></NavLink>
                     </div>
                 )
 
                 arrLinks.push(
-                    <div key="t8" className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/security" exact="true"><Shield size="18" className="me-2" /> Security </NavLink>
+                    <div key="11" className="menu-sub-primary">
+                        <NavLink className="menu-item"  to="/app/operations/security" exact="true"><Shield size="18" className="me-2" /> <span className="menu-sub-tab"> Security </span></NavLink>
                     </div>
                 )
             }
@@ -62,66 +67,35 @@ class Menubar extends Component {
             if(arrPermissions[index] == res["PERMISSIONS"]["USER_ACCESS"])
             {
                 arrLinks.push(
-                    <div key="t4" className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/usermanagement" exact="true"><Repeat size="18" className="me-2" /> User Management </NavLink>
+                    <div key="6" className="menu-sub-primary">
+                        <NavLink className="menu-item"  to="/app/operations/usermanagement" exact="true"><Repeat size="18" className="me-2" /> <span className="menu-sub-tab"> User Management </span></NavLink>
                     </div>
                 )
 
                 arrLinks.push(
-                    <div key="t5" className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/user" exact="true"><Users size="18" className="me-2" /> Users </NavLink>
+                    <div key="5" className="menu-sub-primary">
+                        <NavLink className="menu-item"  to="/app/operations/user" exact="true"><Users size="18" className="me-2" /> <span className="menu-sub-tab"> Users </span></NavLink>
                     </div>
                 )
                 
                 arrLinks.push(
-                    <div key="t7" className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/roleassignment" exact="true"><Lock size="18" className="me-2" /> Role Assignment </NavLink>
+                    <div key="7" className="menu-sub-primary">
+                        <NavLink className="menu-item"  to="/app/operations/roleassignment" exact="true"><Lock size="18" className="me-2" /> <span className="menu-sub-tab"> Role Assignment </span></NavLink>
                     </div>
                 )
                 
                 arrLinks.push(
-                    <div key="t9" className="menu-sub-primary">
-                        <NavLink className="menu-item"  to="/app/operations/userdelete" exact="true"><UserMinus size="18" className="me-2" /> Delete User </NavLink>
+                    <div key="8" className="menu-sub-primary">
+                        <NavLink className="menu-item"  to="/app/operations/userdelete" exact="true"><UserMinus size="18" className="me-2" /> <span className="menu-sub-tab"> Delete User </span></NavLink>
                     </div>
                 )
             }
         }
 
+        arrLinks.sort((a, b) => (a.key) - (b.key));
+
         return (
             <div className="menu-primary text-start p-3 pt-4" style={{ display: this.props.menuState ? 'block' : 'none' }}>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app" exact="true"><Home size="18" className="me-2" /> Dashboard </NavLink>
-                </div>
-                {/* <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/project" exact="true"><Flag size="18" className="me-2" /> Project </NavLink>
-                </div>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/task" exact="true"><Clipboard size="18" className="me-2" /> Task </NavLink>
-                </div>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/usermanagement" exact="true"><Repeat size="18" className="me-2" /> User Management </NavLink>
-                </div>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/user" exact="true"><Users size="18" className="me-2" /> Users </NavLink>
-                </div>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/assets" exact="true"><Box size="18" className="me-2" /> Assets </NavLink>
-                </div>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/insights" exact="true"><BarChart2 size="18" className="me-2" /> Insights </NavLink>
-                </div>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/role" exact="true"><Key size="18" className="me-2" /> Role </NavLink>
-                </div>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/roleassignment" exact="true"><Lock size="18" className="me-2" /> Role Assignment </NavLink>
-                </div>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/security" exact="true"><Shield size="18" className="me-2" /> Security </NavLink>
-                </div>
-                <div className="menu-sub-primary">
-                    <NavLink className="menu-item"  to="/app/operations/userdelete" exact="true"><UserMinus size="18" className="me-2" /> Delete User </NavLink>
-                </div> */}
                 {arrLinks}
             </div>
         )

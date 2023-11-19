@@ -148,3 +148,35 @@
         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
         return Difference_In_Days
     }
+
+    export function checkExist(arrData , value)
+    {
+        if (arrData.includes(value))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    export function getSelectOptionObjectList (arrData , arrKeys , displayKey , defaultOptionRequired, defaultOptionText)
+    {
+        let dataArray = [];
+
+        if(defaultOptionRequired)
+        {
+            dataArray.push(<option key={-1} value={''}>{defaultOptionText}</option>)
+        }
+        for (let index = 0; index < arrData.length; index++) 
+        {
+            let objValue = {}
+            for (let index2 = 0; index2 < arrKeys.length; index2++) 
+            {
+                objValue[arrKeys[index2]] = arrData[index][arrKeys[index2]]
+            }
+            dataArray.push(<option key={arrData[index]} value={JSON.stringify(objValue)}>{arrData[index][displayKey]}</option>);
+        }
+        return dataArray;
+    }

@@ -21,21 +21,23 @@ class Landing extends Component {
     };
   }
 
-  async componentDidMount() {
-    this.setState({ isLoading: true });
-    let http = new HttpHandler();
-    let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user/" + res["STR_USERID"]);
-    res["USERDATA"]["STR_CONTACT"] = arrData[0]["Contact"]
-    res["USERDATA"]["STR_DOB"] = arrData[0]["DOB"]
-    res["USERDATA"]["STR_EMAIL"] = arrData[0]["Email"]
-    res["USERDATA"]["STR_NAME"] = arrData[0]["Name"]
-    res["USERDATA"]["STR_PERMISSIONS"] = arrData[0]["Permissions"]
-    res["USERDATA"]["STR_ROLEID"] = arrData[0]["RoleId"]
-    res["USERDATA"]["STR_ROLENAME"] = arrData[0]["RoleName"]
-    res["USERDATA"]["STR_SECURITY_LEVEL"] = arrData[0]["SecurityLevel"]
-    res["USERDATA"]["STR_USERID"] = arrData[0]["UserId"]
-    this.setState({ isLoading: false });
-  }
+  // async componentDidMount() {
+  //   this.setState({ isLoading: true });
+    // let http = new HttpHandler();
+    // let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user/" + res["USERDATA"]["STR_USERID"]);
+    // res["USERDATA"]["STR_CONTACT"] = arrData[0]["Contact"]
+    // res["USERDATA"]["STR_DOB"] = arrData[0]["DOB"]
+    // res["USERDATA"]["STR_EMAIL"] = arrData[0]["Email"]
+    // res["USERDATA"]["STR_NAME"] = arrData[0]["Name"]
+    // res["USERDATA"]["STR_PERMISSIONS"] = arrData[0]["Permissions"].split(",")
+    // res["USERDATA"]["STR_ROLEID"] = arrData[0]["RoleId"]
+    // res["USERDATA"]["STR_ROLENAME"] = arrData[0]["RoleName"]
+    // res["USERDATA"]["STR_SECURITY_LEVEL"] = arrData[0]["SecurityLevel"]
+    // res["USERDATA"]["STR_USERID"] = arrData[0]["UserId"]
+
+  //   console.log()
+  //   this.setState({ isLoading: false });
+  // }
 
   toggleMenu = () => {
     if (this.state.menuFlag == true) {
@@ -47,16 +49,15 @@ class Landing extends Component {
   }
 
   render() {
-
     if (this.state.isLoading) {
       return getFullScreenLoader("Fetching user data")
     }
     else {
-      if (res["USERDATA"]["STR_PERMISSIONS"] === res["PERMISSIONS"]["NO_ACCESS"]) 
-      {
-        return (<NoAccess />)
-      }
-      else {
+      // if (res["USERDATA"]["STR_PERMISSIONS"][0] === res["PERMISSIONS"]["NO_ACCESS"]) 
+      // {
+      //   return (<NoAccess />)
+      // }
+      // else {
         return (
           <div className="App">
             <Navbar toggleMenu={this.toggleMenu} />
@@ -66,7 +67,7 @@ class Landing extends Component {
             </div>
           </div>
         )
-      }
+      //}
     }
   }
 }

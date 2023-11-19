@@ -1,12 +1,5 @@
 let res = {
-  "FILE_NAME": "Task.xlsx",
-  "SHEET_NAME": "TaskSheet",
-  "FILE_PATH": "C:/Users/Shashank/Desktop/",
-  "STR_MODULE": "Module",
-  "STR_DATE": "Date",
-  "STR_TASK": "Task",
-  "STR_DESCRIPTION": "Description",
-  "STR_IOB": "Issue or Bugs",
+  
   
   "USERDATA": {
       "STR_USERID": "",
@@ -17,37 +10,11 @@ let res = {
       "STR_PERMISSIONS" : "",
       "STR_EMAIL" : "",
       "STR_CONTACT" : "",
-      "STR_DOB" : ""
+      "STR_DOB" : "",
+      "STR_USERNAME" : "",
+      "STR_USER_AUTH_COMPLETED" : ""
   },
-  //-------------------------------------------------------------------------
-  // "STR_USERID": "250",
-  // "STR_USERNAME": "Mandar",
-  // "STR_SECURITY_LEVEL": "5",
-  // "STR_ROLENAME": "Master",
-  // "STR_ROLEID": "3",
 
-  // "STR_USERID": "240",
-  // "STR_USERNAME": "Shashank",
-  // "STR_SECURITY_LEVEL": "0",
-
-  "STR_USERID": "383",
-  "STR_USERNAME": "testuser2",
-  "STR_SECURITY_LEVEL": "5",
-  "STR_ROLENAME": "Project Manager",
-  "STR_ROLEID": "5",
-  //-------------------------------------------------------------------------
-
-  "STR_BLOBDBNAME": "TSSTaskHistory",
-  "STR_BLOBDBCOLLECTIONAME": "TSSTaskHistoryCollection",
-
-  "ID_COLUMN_CONFIG": {
-    "project_master": "ProjectId",
-    "user_master": "UserId",
-    "task_master": "TaskId",
-    "module_master": "ModuleId",
-    "type_master": "TypeId",
-    "priority_master": "PriorityId",
-  },
   "POPUP_NOTIFICATION_MAP": {
     "type": {
       "ERROR": "alert",
@@ -56,12 +23,26 @@ let res = {
       "LOADING": "loading"
     }
   },
-  "TASKDATA_TABLE": {},
-  "TASKVERIFICATION_SLFCOMMIT_TABLE": {},
-  "TASKVERIFICATION_SLFDELETE_TABLE": {},
-  "TASKVERIFICATION_RESOURCEUTILIZATION_TABLE": {},
-  "TASKVERIFICATION_ASSIGNEDTASK_TABLE": {},
 
+  "VIEW_PERM_MAP" : {
+    "Landing" : [],
+    "Project" : ["PERM_ALL_PROJECT"],
+    "Assets" : ["PERM_ALL_PROJECT"],
+    "Dashboard" : ["PERM_ALL_TASK"],
+    "Task" : ["PERM_ALL_TASK"],
+    "TaskBoard" : ["PERM_ALL_TASK"],
+    "Verification" : ["PERM_ALL_TASK"],
+    "Insights" : ["PERM_ALL_REPORT"],
+    "InsProject" : ["PERM_ALL_REPORT"],
+    "InsTask" : ["PERM_ALL_REPORT"],
+    "Role" : ["PERM_ALL_ORG_SECURITY"],
+    "Security" : ["PERM_ALL_ORG_SECURITY"],
+    "UserManagement" : ["PERM_ALL_USER"],
+    "User" : ["PERM_ALL_USER"],
+    "RoleAssignment" : ["PERM_ALL_USER"],
+    "UserDelete" : ["PERM_ALL_USER"],
+  },
+ 
   "WORKFLOW": {
     "STR_WF_NEW": "New",
     "STR_WF_INPROGRESS": "In_Progress",

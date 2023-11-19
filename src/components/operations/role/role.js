@@ -7,6 +7,7 @@ import { Edit2 } from "react-feather";
 import Loader from "../../loader/loader";
 import HttpHandler from "../../../core/httpHandler";
 import res from "../../../shared/resources";
+import PopupNotification from "../../popup/popup";
 
 class Role extends Component 
 {
@@ -14,6 +15,7 @@ class Role extends Component
     {
         super(props);
         this.gridRef = "";
+        this.popupRef = React.createRef();
         this.initializeGrid = this.initializeGrid.bind(this);
         this.createNewRole = this.createNewRole.bind(this);
     }
@@ -41,6 +43,7 @@ class Role extends Component
 
     createNewRole = async(e) => 
     {
+        this.popupRef.current.togglePopupNotificationDisplay("Adding new role ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
         e.preventDefault();
         let body = {
             "roleName": document.getElementById("opr_role_inp_rolename").value,
@@ -49,6 +52,7 @@ class Role extends Component
         };
         const http = new HttpHandler();
         await http.httpPost(res["STR_API_BASEPATH"] + "/api/role" , body);
+        this.popupRef.current.togglePopupNotificationDisplay("Successfully added role" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
     render() {
@@ -99,6 +103,7 @@ class Role extends Component
                 <AgGridReact defaultColDef={defaultRoleColDef} rowData={this.data} columnDefs={roleListHeaders} onGridReady={this.initializeGrid} loadingOverlayComponent={Loader}></AgGridReact>
             </div>
 
+            <PopupNotification ref={this.popupRef}/>
         </div>
 
         )

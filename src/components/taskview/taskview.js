@@ -96,7 +96,7 @@ class TaskView extends Component {
     loadProjectForTask = async () => {
         if (!this.state.isProjectFetchComplete) {
             let http = new HttpHandler();
-            let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["STR_USERID"]);
+            let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/project?userId=" + res["USERDATA"]["STR_USERID"]);
             this.setState({ isProjectFetchComplete: true, projectData: arrData })
         }
     }
@@ -145,7 +145,7 @@ class TaskView extends Component {
     }
     loadUserList = async (projectId) => {
         let http = new HttpHandler();
-        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=smaller_and_equal&projectFilter=same");
+        let arrData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/user?userId=" + res["USERDATA"]["STR_USERID"] + "&projectId=" + projectId + "&roleFilter=smaller_and_equal&projectFilter=same");
         this.setState({ userData: arrData, isUserFetchComplete: true })
     }
     loadSprintList = async (projectId) => {
@@ -159,8 +159,8 @@ class TaskView extends Component {
         let body = []
         let object = {
             "taskId": this.state.taskData["TaskId"],
-            "userId": res["STR_USERID"],
-            "userName": res["STR_USERNAME"],
+            "userId": res["USERDATA"]["STR_USERID"],
+            "userName": res["USERDATA"]["STR_USERNAME"],
             "updateType": "workflow",
             "currentWorkflowState": this.state.taskData["TaskStatus"],
             "newWorkflowState": getNextWorkflowStatus(this.state.taskData["TaskStatus"])
@@ -176,8 +176,8 @@ class TaskView extends Component {
         let body = []
         let object = {
             "taskId": this.state.taskData["TaskId"],
-            "userId": res["STR_USERID"],
-            "userName": res["STR_USERNAME"],
+            "userId": res["USERDATA"]["STR_USERID"],
+            "userName": res["USERDATA"]["STR_USERNAME"],
             "updateType": "workflow",
             "currentWorkflowState": this.state.taskData["TaskStatus"],
             "newWorkflowState": res["WORKFLOW"]["STR_WF_SELFCOMMIT"]
@@ -193,8 +193,8 @@ class TaskView extends Component {
         let body = []
         let object = {
             "taskId": this.state.taskData["TaskId"],
-            "userId": res["STR_USERID"],
-            "userName": res["STR_USERNAME"],
+            "userId": res["USERDATA"]["STR_USERID"],
+            "userName": res["USERDATA"]["STR_USERNAME"],
             "updateType": "workflow",
             "currentWorkflowState": this.state.taskData["TaskStatus"],
             "newWorkflowState": res["WORKFLOW"]["STR_WF_SELFDELETE"]
@@ -209,8 +209,8 @@ class TaskView extends Component {
         this.popupRef.current.togglePopupNotificationDisplay("Adding new comment ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
         let body = {
             "taskId": this.state.taskData["TaskId"],
-            "userId": res["STR_USERID"],
-            "userName": res["STR_USERNAME"],
+            "userId": res["USERDATA"]["STR_USERID"],
+            "userName": res["USERDATA"]["STR_USERNAME"],
             "updateType": "comment",
             "data": document.getElementById('tskview_inp_comment').value
           }
@@ -230,8 +230,8 @@ class TaskView extends Component {
         console.log(result)
         let activityBody = {}
         activityBody["taskId"] = this.state.taskData["TaskId"];
-        activityBody["userId"] = res["STR_USERID"];
-        activityBody["userName"] = res["STR_USERNAME"];
+        activityBody["userId"] = res["USERDATA"]["STR_USERID"];
+        activityBody["userName"] = res["USERDATA"]["STR_USERNAME"];
         activityBody["updateType"] = "attachment";
         activityBody["commentData"] = document.getElementById('tskview-inp-attachment-comment').value;
         activityBody["fileName"] = fileData.name;
@@ -308,8 +308,8 @@ class TaskView extends Component {
             {
                 let body = {
                     "taskId": this.state.taskData["TaskId"],
-                    "userId": res["STR_USERID"],
-                    "userName": res["STR_USERNAME"],
+                    "userId": res["USERDATA"]["STR_USERID"],
+                    "userName": res["USERDATA"]["STR_USERNAME"],
                     "field": "Project",
                     "fieldValue": this.editObj.project
                 }
@@ -325,8 +325,8 @@ class TaskView extends Component {
         {
             let body = {
                 "taskId": this.state.taskData["TaskId"],
-                "userId": res["STR_USERID"],
-                "userName": res["STR_USERNAME"],
+                "userId": res["USERDATA"]["STR_USERID"],
+                "userName": res["USERDATA"]["STR_USERNAME"],
                 "field": "Module",
                 "fieldValue": this.editObj.module
             }
@@ -341,8 +341,8 @@ class TaskView extends Component {
         {
             let body = {
                 "taskId": this.state.taskData["TaskId"],
-                "userId": res["STR_USERID"],
-                "userName": res["STR_USERNAME"],
+                "userId": res["USERDATA"]["STR_USERID"],
+                "userName": res["USERDATA"]["STR_USERNAME"],
                 "field": "Type",
                 "fieldValue": this.editObj.type
             }
@@ -357,8 +357,8 @@ class TaskView extends Component {
         {
             let body = {
                 "taskId": this.state.taskData["TaskId"],
-                "userId": res["STR_USERID"],
-                "userName": res["STR_USERNAME"],
+                "userId": res["USERDATA"]["STR_USERID"],
+                "userName": res["USERDATA"]["STR_USERNAME"],
                 "field": "Priority",
                 "fieldValue": this.editObj.priority
             }
@@ -373,8 +373,8 @@ class TaskView extends Component {
         {
             let body = {
                 "taskId": this.state.taskData["TaskId"],
-                "userId": res["STR_USERID"],
-                "userName": res["STR_USERNAME"],
+                "userId": res["USERDATA"]["STR_USERID"],
+                "userName": res["USERDATA"]["STR_USERNAME"],
                 "field": "Sprint",
                 "fieldValue": this.editObj.sprint
             }
@@ -386,12 +386,12 @@ class TaskView extends Component {
 
     updateTaskField_owner = async () => 
     {
-        if(this.editObj.owner != "" && this.editObj.owner != res["STR_USERID"])
+        if(this.editObj.owner != "" && this.editObj.owner != res["USERDATA"]["STR_USERID"])
         {
             let body = {
                 "taskId": this.state.taskData["TaskId"],
-                "userId": res["STR_USERID"],
-                "userName": res["STR_USERNAME"],
+                "userId": res["USERDATA"]["STR_USERID"],
+                "userName": res["USERDATA"]["STR_USERNAME"],
                 "field": "Owner",
                 "fieldValue": this.editObj.owner
             }
