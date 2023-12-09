@@ -28,6 +28,7 @@ let res = {
     "Landing" : [],
     "Project" : ["PERM_ALL_PROJECT"],
     "Assets" : ["PERM_ALL_PROJECT"],
+    "Sprint" : ["PERM_ALL_PROJECT"],
     "Dashboard" : ["PERM_ALL_TASK"],
     "Task" : ["PERM_ALL_TASK"],
     "TaskBoard" : ["PERM_ALL_TASK"],

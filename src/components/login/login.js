@@ -54,6 +54,8 @@ class Login extends Component {
       res["USERDATA"]["STR_USERNAME"] = data.UserName
       res["USERDATA"]["STR_USER_AUTH_COMPLETED"] = "true"
       
+      localStorage.setItem("USERDATA" , res["USERDATA"])
+      
       //---------------------------
       //TEMP - START
       //---------------------------

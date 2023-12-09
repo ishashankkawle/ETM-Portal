@@ -152,7 +152,6 @@ class Assets extends Component
     render() 
     {
         let projOption = getSelectOptionsList(this.state.projData , "ProjectId" , "ProjectName" , true , "Select Project");
-        console.log(projOption);
         const moduleData = []
         const typeData = []
         const priorityData = []

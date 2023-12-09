@@ -22,6 +22,7 @@ import InsProject from './components/reports/ins_project/InsProject';
 import InsTask from './components/reports/ins_task/InsTask';
 import ProtectedRoutes from './components/protected-routes/protected-routes';
 import res from './shared/resources';
+import Sprint from './components/operations/sprint/sprint';
 
 
 
@@ -53,6 +54,7 @@ class App extends Component {
               <Route path="operations/roleassignment" element={<ProtectedRoutes route=<RoleAssignment /> />} />
               <Route path="operations/security" element={<ProtectedRoutes route=<Security /> />} />
               <Route path="operations/userdelete" element={<ProtectedRoutes route=<UserDelete /> />} />
+              <Route path="operations/sprint" element={<ProtectedRoutes route=<Sprint /> />} />
               <Route path="insight/project" element={<ProtectedRoutes route=<InsProject /> />} /> 
               <Route path="insight/task" element={<ProtectedRoutes route=<InsTask /> />} /> 
             </Route>

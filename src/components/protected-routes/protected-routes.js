@@ -15,9 +15,6 @@ class ProtectedRoutes extends Component
     {
         this.route = this.props.route
 
-        console.log("Inside protected route class , route = " + this.route.type.name + " , auth value = " + res["USERDATA"]["STR_USER_AUTH_COMPLETED"])
-
-
         if(res["USERDATA"]["STR_USER_AUTH_COMPLETED"])
         {
             if (res["USERDATA"]["STR_PERMISSIONS"][0] === res["PERMISSIONS"]["NO_ACCESS"]) 

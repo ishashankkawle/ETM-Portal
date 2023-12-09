@@ -14,6 +14,11 @@ class TaskView extends Component {
 
     constructor(props) {
         super(props)
+        res["USERDATA"] = JSON.parse(localStorage.getItem("userdata"))
+        res["STR_API_BASEPATH"] = JSON.parse(localStorage.getItem("api-base-path"))
+        res["POPUP_NOTIFICATION_MAP"] = JSON.parse(localStorage.getItem("popup-notif"))
+        res["WORKFLOW"] = JSON.parse(localStorage.getItem("workflow"))
+        localStorage.clear();
         this.popupRef = React.createRef();
         this.state = {
             isLoading: false,
@@ -65,7 +70,8 @@ class TaskView extends Component {
 
     async componentDidMount() {
         await this.initialize();
-        document.getElementById('root').style.height = "auto"
+        document.getElementById('root').style.height = "100%"
+        console.log(localStorage.getItem("USERDATA"))
     }
 
     initialize = async() => {
@@ -227,7 +233,6 @@ class TaskView extends Component {
         body.append(fileData.name,fileData)
         body.append("UPLOADCARE_PUB_KEY", "0df57c1d7377e7482b0b")
         let result = await http.httpPostMultiartData("https://upload.uploadcare.com/base/", body, http.getDefaultMultipartHeaders());
-        console.log(result)
         let activityBody = {}
         activityBody["taskId"] = this.state.taskData["TaskId"];
         activityBody["userId"] = res["USERDATA"]["STR_USERID"];
@@ -237,7 +242,7 @@ class TaskView extends Component {
         activityBody["fileName"] = fileData.name;
         activityBody["url"] = "https://ucarecdn.com/" + result[fileData.name] + "/";
 
-        result = await http.httpPut(res["STR_BASEPATH"] + "/task/activityworkflow", activityBody, http.getDefaultHeaders());
+        result = await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow", activityBody, http.getDefaultHeaders());
         //return result;
         this.popupRef.current.togglePopupNotificationDisplay("Successfully added attachment" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }

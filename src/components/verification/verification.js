@@ -133,27 +133,27 @@ class Verification extends Component {
         return summObj;
     }
 
-    populateResourceConsumptionData(data) {
-        let arrOutput = []
-        for (let index = 0; index < data.length; index++) {
-            if (arrOutput.length == 0) {
-                arrOutput.push({ "OwnerName": data[index]["OwnerName"], "count": 1 })
-            }
-            else {
-                let flag = 1;
-                for (let index2 = 0; index2 < arrOutput.length; index2++) {
-                    if (arrOutput[index2]["OwnerName"] == data[index]["OwnerName"]) {
-                        arrOutput[index2]["count"]++;
-                        flag = 0;
-                    }
-                }
-                if (flag == 1) {
-                    arrOutput.push({ "OwnerName": data[index]["OwnerName"], "count": 1 })
-                }
-            }
-        }
-        return arrOutput;
-    }
+    // populateResourceConsumptionData(data) {
+    //     let arrOutput = []
+    //     for (let index = 0; index < data.length; index++) {
+    //         if (arrOutput.length == 0) {
+    //             arrOutput.push({ "OwnerName": data[index]["OwnerName"], "count": 1 })
+    //         }
+    //         else {
+    //             let flag = 1;
+    //             for (let index2 = 0; index2 < arrOutput.length; index2++) {
+    //                 if (arrOutput[index2]["OwnerName"] == data[index]["OwnerName"]) {
+    //                     arrOutput[index2]["count"]++;
+    //                     flag = 0;
+    //                 }
+    //             }
+    //             if (flag == 1) {
+    //                 arrOutput.push({ "OwnerName": data[index]["OwnerName"], "count": 1 })
+    //             }
+    //         }
+    //     }
+    //     return arrOutput;
+    // }
 
     initializeAssignmentGrid = async (params) => {
         if( this.asgGridRef == "")
@@ -182,14 +182,15 @@ class Verification extends Component {
         this.rcsGridRef.showLoadingOverlay();
         let http = new HttpHandler();
         let arrRCSData = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/rcs_util?userId=" + res["USERDATA"]["STR_USERID"] + "&summary=true");
-        let dataRCSSummary = this.populateResourceConsumptionData(arrRCSData)
-        if (dataRCSSummary.length == 0) 
+        //let dataRCSSummary = this.populateResourceConsumptionData(arrRCSData)
+        //if (dataRCSSummary.length == 0) 
+        if (arrRCSData.length == 0) 
         {
             this.rcsGridRef.showNoRowsOverlay();
         } 
         else
         {
-            this.rcsGridRef.setRowData(dataRCSSummary)
+            this.rcsGridRef.setRowData(arrRCSData)
             this.rcsGridRef.hideOverlay();
         }
     }
@@ -236,6 +237,10 @@ class Verification extends Component {
 
     openTask(params) {
         //console.log(this.verCommitGridRef.getSelectedRows())
+        localStorage.setItem("userdata" , JSON.stringify(res["USERDATA"]))
+        localStorage.setItem("api-base-path" , JSON.stringify(res["STR_API_BASEPATH"]))
+        localStorage.setItem("popup-notif" , JSON.stringify(res["POPUP_NOTIFICATION_MAP"]))
+        localStorage.setItem("workflow" , JSON.stringify(res["WORKFLOW"]))
         window.open("http://localhost:3000/taskview/" + params.data.TaskId, "_blank")
     }
 
@@ -406,7 +411,8 @@ class Verification extends Component {
 
                         <div className="row" style={{ height: '58%' }}>
                             <div className="asboard mt-2 ag-theme-alpine" style={{ width: '20%' }}>
-                                <AgGridReact className="shadow-sm" defaultColDef={defaultRCSColDef} rowData={this.dataRCSSummary} columnDefs={RCSSummaryHeaders} onGridReady={this.initializeRCSGrid} loadingOverlayComponent={Loader}></AgGridReact>
+                                {/* <AgGridReact className="shadow-sm" defaultColDef={defaultRCSColDef} rowData={this.dataRCSSummary} columnDefs={RCSSummaryHeaders} onGridReady={this.initializeRCSGrid} loadingOverlayComponent={Loader}></AgGridReact> */}
+                                <AgGridReact className="shadow-sm" defaultColDef={defaultRCSColDef} rowData={this.arrRCSData} columnDefs={RCSSummaryHeaders} onGridReady={this.initializeRCSGrid} loadingOverlayComponent={Loader}></AgGridReact>
                             </div>
 
                             <div className="asboard mt-2 ag-theme-alpine" style={{ width: '80%' }}>
