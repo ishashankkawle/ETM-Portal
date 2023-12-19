@@ -70,7 +70,7 @@ let res = {
   },
 
 
-  "STR_API_BASEPATH": "http://laniak-core-api.us-e2.cloudhub.io",
+  "STR_API_BASEPATH": "https://laniak-core-api.us-e2.cloudhub.io",
   "PostgresConnection": "postgres://uuktnljs:Bd-dHv74TDkC-XcBp5Sp-du4xiomzwo1@drona.db.elephantsql.com:5432/uuktnljs",
   "MongoClusterConnection": "mongodb+srv://ets_admin:adreno%40123@tsstaskcluster.8gnng.mongodb.net/ETMHistoryDatabase"
 
