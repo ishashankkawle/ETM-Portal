@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import Landing from './components/landing/landing';
 import Login from './components/login/login';
 import Dashboard from './components/dashboard/dashboard';
@@ -37,7 +37,7 @@ class App extends Component {
 
     console.log("Inside App , auth value = " + res["USERDATA"]["STR_USER_AUTH_COMPLETED"])
     return (
-      <BrowserRouter basename={`/${process.env.PUBLIC_URL}`}>
+      <HashRouter basename={`/${process.env.PUBLIC_URL}`}>
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route exact path="/app" element={ <ProtectedRoutes element="Landing" route=<Landing /> />}>
@@ -60,7 +60,7 @@ class App extends Component {
           </Route>
           <Route path="/taskview/:id" element={<TaskView />} /> 
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     )
   }
 }
