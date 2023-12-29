@@ -39,8 +39,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route exact path="/ETM-Portal" element={<Login />} />
-            <Route exact path="/app" element={ <ProtectedRoutes route=<Landing /> />}>
+          <Route path="/" element={<Login />} />
+            <Route path="/app" element={ <ProtectedRoutes route=<Landing /> />}>
               <Route index element={<ProtectedRoutes route=<Dashboard /> />} /> 
               <Route path="taskboard" element={ <ProtectedRoutes route=<TaskBoard /> />} /> 
               <Route path="verification" element={<ProtectedRoutes route=<Verification /> />} /> 
