@@ -27,7 +27,7 @@ class HttpHandler {
             method: 'POST',
             headers: customHeaders,
             mode: 'no-cors',
-            body: JSON.stringify(reqBody)
+            body: reqBody
         })
         let data =  await response.json()
         //console.log("DATA = " + JSON.stringify(data))
