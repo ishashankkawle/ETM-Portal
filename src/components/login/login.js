@@ -35,7 +35,7 @@ class Login extends Component {
         "password": document.getElementById("login_inp_password").value,
     };
     const http = new HttpHandler();
-    let data = await http.httpPost(res["STR_API_BASEPATH"] + "/api/auth" , body);
+    let data = await http.httpPost(res["STR_API_BASEPATH"] + "/api/auth" , JSON.parse(body));
     if (data.auth == "failed") 
     {
       this.setState({authCompleted : "false"})
