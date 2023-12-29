@@ -42,6 +42,7 @@ class Login extends Component {
     } 
     else 
     {
+      console.log(data)
       res["USERDATA"]["STR_USERID"] = data.UserId
       res["USERDATA"]["STR_NAME"] = data.Name
       res["USERDATA"]["STR_SECURITY_LEVEL"] = data.SecurityLevel
