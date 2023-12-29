@@ -14,7 +14,7 @@ class ProtectedRoutes extends Component
     render()
     {
         this.route = this.props.route
-
+        this.element = this.props.element
         if(res["USERDATA"]["STR_USER_AUTH_COMPLETED"])
         {
             if (res["USERDATA"]["STR_PERMISSIONS"][0] === res["PERMISSIONS"]["NO_ACCESS"]) 
@@ -23,7 +23,7 @@ class ProtectedRoutes extends Component
             }
             else
             {
-                let currentView = this.route.type.name
+                let currentView = this.element
                 console.log(res["VIEW_PERM_MAP"])
                 console.log(this.route)
                 let currentViewPermissions = res["VIEW_PERM_MAP"][currentView]

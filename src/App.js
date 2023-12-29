@@ -40,23 +40,23 @@ class App extends Component {
       <BrowserRouter basename={`/${process.env.PUBLIC_URL}`}>
         <Routes>
           <Route exact path="/" element={<Login />} />
-          <Route exact path="/app" element={ <ProtectedRoutes route=<Landing /> />}>
-            <Route index element={<ProtectedRoutes route=<Dashboard /> />} /> 
-            <Route path="taskboard" element={ <ProtectedRoutes route=<TaskBoard /> />} /> 
-            <Route path="verification" element={<ProtectedRoutes route=<Verification /> />} /> 
-            <Route path="operations/project" element={<ProtectedRoutes route=<Project /> />} /> 
-            <Route path="operations/task" element={<ProtectedRoutes route=<Task /> />} /> 
-            <Route path="operations/usermanagement" element={<ProtectedRoutes route=<UserManagement /> />} />
-            <Route path="operations/user" element={<ProtectedRoutes route=<User /> />} />
-            <Route path="operations/assets" element={<ProtectedRoutes route=<Assets /> />} /> 
-            <Route path="operations/insights" element={<ProtectedRoutes route= <Insights /> />} /> 
-            <Route path="operations/role" element={<ProtectedRoutes route=<Role /> />} />
-            <Route path="operations/roleassignment" element={<ProtectedRoutes route=<RoleAssignment /> />} />
-            <Route path="operations/security" element={<ProtectedRoutes route=<Security /> />} />
-            <Route path="operations/userdelete" element={<ProtectedRoutes route=<UserDelete /> />} />
-            <Route path="operations/sprint" element={<ProtectedRoutes route=<Sprint /> />} />
-            <Route path="insight/project" element={<ProtectedRoutes route=<InsProject /> />} /> 
-            <Route path="insight/task" element={<ProtectedRoutes route=<InsTask /> />} /> 
+          <Route exact path="/app" element={ <ProtectedRoutes element="Landing" route=<Landing /> />}>
+            <Route index element={<ProtectedRoutes element="Dashboard" route=<Dashboard /> />} /> 
+            <Route path="taskboard" element={ <ProtectedRoutes element="TaskBoard" route=<TaskBoard /> />} /> 
+            <Route path="verification" element={<ProtectedRoutes element="Verification" route=<Verification /> />} /> 
+            <Route path="operations/project" element={<ProtectedRoutes element="Project" route=<Project /> />} /> 
+            <Route path="operations/task" element={<ProtectedRoutes element="Task" route=<Task /> />} /> 
+            <Route path="operations/usermanagement" element={<ProtectedRoutes element="UserManagement" route=<UserManagement /> />} />
+            <Route path="operations/user" element={<ProtectedRoutes element="User" route=<User /> />} />
+            <Route path="operations/assets" element={<ProtectedRoutes element="Assets" route=<Assets /> />} /> 
+            <Route path="operations/insights" element={<ProtectedRoutes element="Insights" route= <Insights /> />} /> 
+            <Route path="operations/role" element={<ProtectedRoutes element="Role" route=<Role /> />} />
+            <Route path="operations/roleassignment" element={<ProtectedRoutes element="RoleAssignment" route=<RoleAssignment /> />} />
+            <Route path="operations/security" element={<ProtectedRoutes element="Security" route=<Security /> />} />
+            <Route path="operations/userdelete" element={<ProtectedRoutes element="UserDelete" route=<UserDelete /> />} />
+            <Route path="operations/sprint" element={<ProtectedRoutes element="Sprint" route=<Sprint /> />} />
+            <Route path="insight/project" element={<ProtectedRoutes element="InsProject" route=<InsProject /> />} /> 
+            <Route path="insight/task" element={<ProtectedRoutes element="InsTask" route=<InsTask /> />} /> 
           </Route>
           <Route path="/taskview/:id" element={<TaskView />} /> 
         </Routes>
