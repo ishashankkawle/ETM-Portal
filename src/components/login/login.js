@@ -36,6 +36,8 @@ class Login extends Component {
     };
     const http = new HttpHandler();
     let data = await http.httpPost(res["STR_API_BASEPATH"] + "/api/auth" , body);
+    console.log(data)
+    console.log(this.state)
     if (data.auth == "failed") 
     {
       this.setState({authCompleted : "false"})
@@ -43,6 +45,7 @@ class Login extends Component {
     else 
     {
       console.log(data)
+      console.log(this.state)
       res["USERDATA"]["STR_USERID"] = data.UserId
       res["USERDATA"]["STR_NAME"] = data.Name
       res["USERDATA"]["STR_SECURITY_LEVEL"] = data.SecurityLevel
@@ -76,6 +79,7 @@ class Login extends Component {
   render() {
 
     let displayMsg = ""
+    console.log(this.state)
 
     if(this.state.authCompleted == "running")
     {
@@ -88,7 +92,7 @@ class Login extends Component {
 
     if(this.state.authCompleted == "true")
     {
-      return (<Navigate to="/app" replace={true} />)
+      return (<Navigate to="/app"  />)
     }
     else
     {
