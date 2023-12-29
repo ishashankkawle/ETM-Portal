@@ -92,7 +92,7 @@ class Login extends Component {
 
     if(this.state.authCompleted == "true")
     {
-      return (<Navigate to="%PUBLIC_URL%/app"  />)
+      return (<Navigate to="/ETM-Portal/app"  />)
     }
     else
     {
