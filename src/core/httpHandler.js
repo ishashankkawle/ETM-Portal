@@ -13,7 +13,8 @@ class HttpHandler {
     async httpGet(url, customHeaders = this.getDefaultHeaders()) {
         let response = await fetch(url, {
             method: 'GET',
-            headers: customHeaders
+            headers: customHeaders,
+            mode: 'no-cors'
         })
         let data = await response.json()
         //console.log("DATA = " + JSON.stringify(data))
@@ -25,6 +26,7 @@ class HttpHandler {
         let response = await fetch(url, {
             method: 'POST',
             headers: customHeaders,
+            mode: 'no-cors',
             body: JSON.stringify(reqBody)
         })
         let data =  await response.json()
@@ -36,6 +38,7 @@ class HttpHandler {
         let response = await fetch(url, {
             method: 'PUT',
             headers: customHeaders,
+            mode: 'no-cors',
             body: JSON.stringify(reqBody)
         })
         let data = await response.json()
@@ -47,6 +50,7 @@ class HttpHandler {
         let response = await fetch(url, {
             method: 'DELETE',
             headers: customHeaders,
+            mode: 'no-cors',
             body: JSON.stringify(reqBody)
         })
         let data = await response.json()
