@@ -37,7 +37,7 @@ class App extends Component {
 
     console.log("Inside App , auth value = " + res["USERDATA"]["STR_USER_AUTH_COMPLETED"])
     return (
-      <HashRouter basename={`/${process.env.PUBLIC_URL}`}>
+      <BrowserRouter basename={`/${process.env.PUBLIC_URL}`}>
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route exact path="/app" element={ <ProtectedRoutes element="Landing" route=<Landing /> />}>
@@ -60,7 +60,7 @@ class App extends Component {
           </Route>
           <Route path="/taskview/:id" element={<TaskView />} /> 
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     )
   }
 }
