@@ -92,7 +92,7 @@ class Login extends Component {
 
     if(this.state.authCompleted == "true")
     {
-      return (<Navigate to="/app" />)
+      return (<Navigate to="/app" replace={true}/>)
     }
     else
     {
