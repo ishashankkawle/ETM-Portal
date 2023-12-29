@@ -25,7 +25,7 @@ class ProtectedRoutes extends Component
             {
                 let currentView = this.route.type.name
                 console.log(res["VIEW_PERM_MAP"])
-                console.log(currentView)
+                console.log(this.route)
                 let currentViewPermissions = res["VIEW_PERM_MAP"][currentView]
                 let routingAllowed = true
                 for (let index = 0; index < currentViewPermissions.length; index++) 
