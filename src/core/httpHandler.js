@@ -3,8 +3,7 @@ import axios from 'axios';
 class HttpHandler {
 
     getDefaultHeaders() {
-        return { "mode": "no-cors", "Content-Type": "application/json" }
-        //return { "Content-Type": "application/json" }
+        return { "Content-Type": "application/json" }
         //return { "Content-Type": "application/java" }
     }
     getDefaultMultipartHeaders() {
