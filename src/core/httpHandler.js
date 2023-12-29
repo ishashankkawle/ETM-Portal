@@ -23,6 +23,7 @@ class HttpHandler {
 
 
     async httpPost(url, reqBody, customHeaders = this.getDefaultHeaders()) {
+        console.log(customHeaders)
         let response = await fetch(url, {
             method: 'POST',
             headers: customHeaders,
