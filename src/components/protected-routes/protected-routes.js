@@ -47,7 +47,7 @@ class ProtectedRoutes extends Component
         }
         else
         {
-            return <Navigate to="/" replace={true}/>
+            return <Navigate to={`/${process.env.PUBLIC_URL}`} replace={true}/>
         }
     }
 }
