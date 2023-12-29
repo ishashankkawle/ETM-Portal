@@ -3,7 +3,7 @@ import axios from 'axios';
 class HttpHandler {
 
     getDefaultHeaders() {
-        return {"Content-Type": "application/json" }
+        return { "mode": "no-cors", "Content-Type": "application/json" }
         //return { "Content-Type": "application/json" }
         //return { "Content-Type": "application/java" }
     }
@@ -14,8 +14,7 @@ class HttpHandler {
     async httpGet(url, customHeaders = this.getDefaultHeaders()) {
         let response = await fetch(url, {
             method: 'GET',
-            headers: customHeaders,
-            mode: 'no-cors'
+            headers: customHeaders
         })
         let data = await response.json()
         //console.log("DATA = " + JSON.stringify(data))
@@ -27,7 +26,6 @@ class HttpHandler {
         let response = await fetch(url, {
             method: 'POST',
             headers: customHeaders,
-            mode: 'no-cors',
             body: JSON.stringify(reqBody)
         })
         let data =  await response.json()
@@ -39,7 +37,6 @@ class HttpHandler {
         let response = await fetch(url, {
             method: 'PUT',
             headers: customHeaders,
-            mode: 'no-cors',
             body: JSON.stringify(reqBody)
         })
         let data = await response.json()
@@ -51,7 +48,6 @@ class HttpHandler {
         let response = await fetch(url, {
             method: 'DELETE',
             headers: customHeaders,
-            mode: 'no-cors',
             body: JSON.stringify(reqBody)
         })
         let data = await response.json()
