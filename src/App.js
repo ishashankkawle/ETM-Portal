@@ -37,9 +37,9 @@ class App extends Component {
 
     console.log("Inside App , auth value = " + res["USERDATA"]["STR_USER_AUTH_COMPLETED"])
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={`/${process.env.PUBLIC_URL}`}>
         <Routes>
-          <Route exact path="/ETM-Portal" element={<Login />} />
+          <Route exact path="/" element={<Login />} />
           <Route exact path="/app" element={ <ProtectedRoutes route=<Landing /> />}>
             <Route index element={<ProtectedRoutes route=<Dashboard /> />} /> 
             <Route path="taskboard" element={ <ProtectedRoutes route=<TaskBoard /> />} /> 
