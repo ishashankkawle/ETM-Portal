@@ -36,16 +36,12 @@ class Login extends Component {
     };
     const http = new HttpHandler();
     let data = await http.httpPost(res["STR_API_BASEPATH"] + "/api/auth" , body);
-    console.log(data)
-    console.log(this.state)
     if (data.auth == "failed") 
     {
       this.setState({authCompleted : "false"})
     } 
     else 
     {
-      console.log(data)
-      console.log(this.state)
       res["USERDATA"]["STR_USERID"] = data.UserId
       res["USERDATA"]["STR_NAME"] = data.Name
       res["USERDATA"]["STR_SECURITY_LEVEL"] = data.SecurityLevel
@@ -59,19 +55,6 @@ class Login extends Component {
       res["USERDATA"]["STR_USER_AUTH_COMPLETED"] = "true"
       
       localStorage.setItem("USERDATA" , res["USERDATA"])
-      
-      //---------------------------
-      //TEMP - START
-      //---------------------------
-      // res["USERDATA"]["STR_USERID"] = data.UserId
-      // res["USERDATA"]["STR_USERNAME"] = data.UserName
-      // res["USERDATA"]["STR_SECURITY_LEVEL"] = data.SecurityLevel
-      // res["USERDATA"]["STR_ROLENAME"] = data.RoleName
-      // res["USERDATA"]["STR_ROLEID"] = data.RoleId
-      //---------------------------
-      //TEMP - COMPLETE 
-      //---------------------------
-
       this.setState({authCompleted : "true"})
     }
   }
