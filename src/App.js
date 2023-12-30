@@ -36,6 +36,7 @@ class App extends Component {
   render() {    
 
     console.log("Inside App , auth value = " + res["USERDATA"]["STR_USER_AUTH_COMPLETED"])
+    console.log("Current pulic url from APP : " + process.env.PUBLIC_URL)
     return (
       <BrowserRouter basename={`/${process.env.PUBLIC_URL}`}>
         <Routes>

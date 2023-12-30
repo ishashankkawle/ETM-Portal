@@ -101,7 +101,7 @@ class Task extends Component {
         localStorage.setItem("api-base-path" , JSON.stringify(res["STR_API_BASEPATH"]))
         localStorage.setItem("popup-notif" , JSON.stringify(res["POPUP_NOTIFICATION_MAP"]))
         localStorage.setItem("workflow" , JSON.stringify(res["WORKFLOW"]))
-        window.open("http://localhost:3000/taskview/" + params.data.TaskId, "_blank")
+        window.open(process.env.PUBLIC_URL + "/taskview/" + params.data.TaskId, "_blank")
     }
 
     loadAssetsForTask = async () => 

@@ -236,12 +236,11 @@ class Verification extends Component {
     }
 
     openTask(params) {
-        //console.log(this.verCommitGridRef.getSelectedRows())
         localStorage.setItem("userdata" , JSON.stringify(res["USERDATA"]))
         localStorage.setItem("api-base-path" , JSON.stringify(res["STR_API_BASEPATH"]))
         localStorage.setItem("popup-notif" , JSON.stringify(res["POPUP_NOTIFICATION_MAP"]))
         localStorage.setItem("workflow" , JSON.stringify(res["WORKFLOW"]))
-        window.open("http://localhost:3000/taskview/" + params.data.TaskId, "_blank")
+        window.open(process.env.PUBLIC_URL + "/taskview/" + params.data.TaskId, "_blank")
     }
 
     render() {

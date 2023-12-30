@@ -19,13 +19,13 @@ class ProtectedRoutes extends Component
         {
             if (res["USERDATA"]["STR_PERMISSIONS"][0] === res["PERMISSIONS"]["NO_ACCESS"]) 
             {
+                console.log("Current pulic url : " + process.env.PUBLIC_URL)
                 return (<NoAccess />)
             }
             else
             {
                 let currentView = this.element
-                console.log(res["VIEW_PERM_MAP"])
-                console.log(this.route)
+                console.log("Current pulic url : " + process.env.PUBLIC_URL)
                 let currentViewPermissions = res["VIEW_PERM_MAP"][currentView]
                 let routingAllowed = true
                 for (let index = 0; index < currentViewPermissions.length; index++) 
@@ -47,7 +47,8 @@ class ProtectedRoutes extends Component
         }
         else
         {
-            return <Navigate to={`/${process.env.PUBLIC_URL}`} replace={true}/>
+            console.log("Current pulic url : " + process.env.PUBLIC_URL)
+            return <Navigate to="/" replace={true}/>
         }
     }
 }
