@@ -62,7 +62,6 @@ class Login extends Component {
   render() {
 
     let displayMsg = ""
-    console.log(this.state)
 
     if(this.state.authCompleted == "running")
     {
