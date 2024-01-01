@@ -577,9 +577,8 @@ class TaskView extends Component {
                         <div className='row h-100 me-0'>
                             <div className='col-8 ps-5 pt-4 pe-5'>
                                 <div className='row tskview-header-pane'>
-                                    <div className='d-flex justify-content-between align-items-center'>
-                                        <h4 className='mt-3 mb-3'>{this.state.taskData["TaskId"]} | {this.state.taskData["Title"]}</h4>
-                                        <div>
+                              
+                                        <div className='d-flex ps-0 align-items-center'>
                                             <div className="btn-group me-2 btn-group-sm shadow-sm bg-white" role="group" >
                                                 <button type="button" className="btn" onClick={this.updateTaskToNextWorkflow}><ChevronsRight color="var(--text-primary)" size="16" /></button>
                                                 <button type="button" className="btn" onClick={this.updateTaskToSelfCommit}><UserCheck color="var(--text-primary)" size="16" /></button>
@@ -592,7 +591,8 @@ class TaskView extends Component {
                                                 <button className="btn btn-primary btn-sm tskview-edit-button" type="button" id="tskview_btn_edit" onClick={() => this.toggleEditPopup("tskview_btn_edit")}><Edit2 size="15" /> Edit</button>
                                             </div>
                                         </div>
-                                    </div>
+                                        <h4 className='mt-3 mb-3'>{this.state.taskData["TaskId"]} | {this.state.taskData["Title"]}</h4>
+                                    
                                     <p className='mt-3'>
                                         {this.state.taskData["Description"]}
                                     </p>

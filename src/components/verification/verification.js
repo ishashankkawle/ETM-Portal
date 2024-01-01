@@ -8,6 +8,7 @@ import Loader from "../loader/loader";
 import HttpHandler from "../../core/httpHandler";
 import res from "../../shared/resources";
 import { getPreviousWorkflowStatus } from "../../core/workflowOperations";
+import { Navigate } from "react-router";
 
 
 class Verification extends Component {
@@ -21,9 +22,12 @@ class Verification extends Component {
         this.state = { 
             isLoading: false , 
             summaryCountObject : {} ,
+            opentask : false,
+            taskurl : ""
             // dataVerificationCommit : [],
             // dataVerificationDelete : []
         }
+        
         this.initializeAssignmentGrid = this.initializeAssignmentGrid.bind(this);
         this.initializeRCSGrid = this.initializeRCSGrid.bind(this);
         this.initializeCommitVerificationGrid = this.initializeCommitVerificationGrid.bind(this);
@@ -240,11 +244,15 @@ class Verification extends Component {
         localStorage.setItem("api-base-path" , JSON.stringify(res["STR_API_BASEPATH"]))
         localStorage.setItem("popup-notif" , JSON.stringify(res["POPUP_NOTIFICATION_MAP"]))
         localStorage.setItem("workflow" , JSON.stringify(res["WORKFLOW"]))
-        //window.open(process.env.PUBLIC_URL + "/taskview/" + params.data.TaskId, "_blank")
-        return (<Navigate to="/taskview/`${params.data.TaskId}`" replace={true}/>)
+        let url = "/app/taskview/" + params.data.TaskId
+        this.setState({openTask: true, taskurl: url})
     }
 
     render() {
+        if(this.state.openTask)
+        {
+            return (<Navigate to={this.state.taskurl} replace={true}/>)
+        }
 
         const defaultRCSColDef = {
             sortable: true,
@@ -271,7 +279,7 @@ class Verification extends Component {
             { headerName: "Status", field: "TaskStatus" },
             {
                 headerName: "", field: "TaskId", sortable: false, resizable: false, filter: false, maxWidth: 50,
-                cellRendererFramework: (params) => <div className="tsb-action-button" onClick={() => this.openTask(params)}>
+                cellRenderer : (params) => <div className="tsb-action-button" onClick={() => this.openTask(params)}>
                     <ArrowRightCircle className="mb-1" color="var(--text-primary-cust)" size="18" />
                 </div>
             },
@@ -283,7 +291,7 @@ class Verification extends Component {
             { headerName: "Module", field: "Module" },
             {
                 headerName: "", field: "TaskId", sortable: false, resizable: false, filter: false,  maxWidth: 50,
-                cellRendererFramework: (params) => <div>
+                cellRenderer : (params) => <div>
                     <div className="tsb-action-button" onClick={() => this.updateTaskToComplete()}>
                         <CheckCircle className="mb-1" color="var(--text-success-cust)" size="18" />
                     </div>
@@ -291,7 +299,7 @@ class Verification extends Component {
             },
             {
                 headerName: "", field: "id", sortable: false, resizable: false, filter: false, maxWidth: 50,
-                cellRendererFramework: (params) => <div>
+                cellRenderer : (params) => <div>
                     <div className="tsb-action-button" onClick={() => this.revertTaskFromComGrid()}>
                         <RotateCcw className="mb-1" color="var(--text-highlight-cust)" size="18" />
                     </div>
@@ -299,7 +307,7 @@ class Verification extends Component {
             },
             {
                 headerName: "", field: "id", sortable: false, resizable: false, filter: false,  maxWidth: 50,
-                cellRendererFramework: (params) => <div>
+                cellRenderer : (params) => <div>
                     <div className="tsb-action-button" onClick={() => this.openTask(params)}>
                         <ArrowRightCircle className="mb-1" color="var(--text-primary-cust)" size="18" />
                     </div>
@@ -312,7 +320,7 @@ class Verification extends Component {
             { headerName: "Module", field: "Module" },
             {
                 headerName: "", field: "TaskId", sortable: false, resizable: false, filter: false,  maxWidth: 50,
-                cellRendererFramework: (params) => <div>
+                cellRenderer : (params) => <div>
                     <div className="tsb-action-button" onClick={() => this.updateTaskToDelete()}>
                         <XCircle className="mb-1" color="var(--text-warning-cust)" size="18" />
                     </div>
@@ -320,7 +328,7 @@ class Verification extends Component {
             },
             {
                 headerName: "", field: "id", sortable: false, resizable: false, filter: false,  maxWidth: 50,
-                cellRendererFramework: (params) => <div>
+                cellRenderer : (params) => <div>
                     <div className="tsb-action-button" onClick={() => this.revertTaskFromDelGrid()}>
                         <RotateCcw className="mb-1" color="var(--text-highlight-cust)" size="18" />
                     </div>
@@ -328,7 +336,7 @@ class Verification extends Component {
             },
             {
                 headerName: "", field: "id", sortable: false, resizable: false, filter: false, maxWidth: 50,
-                cellRendererFramework: (params) => <div>
+                cellRenderer : (params) => <div>
                     <div className="tsb-action-button" onClick={() => this.openTask(params)}>
                         <ArrowRightCircle className="mb-1" color="var(--text-primary-cust)" size="18" />
                     </div>

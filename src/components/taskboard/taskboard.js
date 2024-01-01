@@ -6,7 +6,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import HttpHandler from "../../core/httpHandler";
 import Loader from "../loader/loader";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { getNextWorkflowStatus } from "../../core/workflowOperations";
 import res from "../../shared/resources";
 import PopupNotification from "../popup/popup";
@@ -17,6 +17,10 @@ class TaskBoard extends Component {
     super(props);
     this.gridRef = "";
     this.popupRef = React.createRef();
+    this.state = { 
+      opentask : false,
+      taskurl : ""
+  }
     this.initializeGrid = this.initializeGrid.bind(this);
     this.updateTaskToNextWorkflow = this.updateTaskToNextWorkflow.bind(this);
     this.updateTaskToSelfCommit = this.updateTaskToSelfCommit.bind(this);
@@ -124,10 +128,17 @@ class TaskBoard extends Component {
     localStorage.setItem("api-base-path" , JSON.stringify(res["STR_API_BASEPATH"]))
     localStorage.setItem("popup-notif" , JSON.stringify(res["POPUP_NOTIFICATION_MAP"]))
     localStorage.setItem("workflow" , JSON.stringify(res["WORKFLOW"]))
-    window.open(process.env.PUBLIC_URL + "/taskview/" + params.data.TaskId, "_blank")
+    //window.open(process.env.PUBLIC_URL + "/taskview/" + params.data.TaskId, "_blank")
+    let url = "/app/taskview/" + params.data.TaskId
+    this.setState({openTask: true, taskurl: url})
   }
 
   render() {
+
+    if(this.state.openTask)
+    {
+        return (<Navigate to={this.state.taskurl} replace={true}/>)
+    }
 
     const defaultColDef = {
       sortable: true,
@@ -146,7 +157,7 @@ class TaskBoard extends Component {
       { headerName: "Status", field: "TaskStatus" },
       {
         headerName: "", field: "Id", sortable: false, resizable: false, filter: false, defaultMinWidth: 50, maxWidth: 50,
-        cellRendererFramework: (params) => <div className="tsb-action-button" onClick={() => this.openTask(params)}>
+        cellRenderer : (params) => <div className="tsb-action-button" onClick={() => this.openTask(params)}>
           <ArrowRightCircle className="mb-1" color="var(--text-primary-cust)" size="18" />
         </div>
       },

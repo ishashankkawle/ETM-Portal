@@ -5,7 +5,8 @@
 
 .tskview-panel{
     background-color: #fff;
-    width: 90%;
+    /* width: 90%; */
+    text-align: start;
 }
 .tskview-details-pane
 {
