@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { Component } from 'react';
-import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import Landing from './components/landing/landing';
 import Login from './components/login/login';
 import Dashboard from './components/dashboard/dashboard';
