@@ -14,11 +14,11 @@ class TaskView extends Component {
 
     constructor(props) {
         super(props)
-        res["USERDATA"] = JSON.parse(localStorage.getItem("userdata"))
-        res["STR_API_BASEPATH"] = JSON.parse(localStorage.getItem("api-base-path"))
-        res["POPUP_NOTIFICATION_MAP"] = JSON.parse(localStorage.getItem("popup-notif"))
-        res["WORKFLOW"] = JSON.parse(localStorage.getItem("workflow"))
-        localStorage.clear();
+        //res["USERDATA"] = JSON.parse(localStorage.getItem("userdata"))
+        //res["STR_API_BASEPATH"] = JSON.parse(localStorage.getItem("api-base-path"))
+        //res["POPUP_NOTIFICATION_MAP"] = JSON.parse(localStorage.getItem("popup-notif"))
+        //res["WORKFLOW"] = JSON.parse(localStorage.getItem("workflow"))
+        //localStorage.clear();
         this.popupRef = React.createRef();
         this.state = {
             isLoading: false,

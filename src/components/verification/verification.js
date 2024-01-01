@@ -216,6 +216,7 @@ class Verification extends Component {
         {
             this.verCommitGridRef = params.api;
         }
+        this.verCommitGridRef.setRowData([])
         this.verCommitGridRef.showLoadingOverlay();
         let http = new HttpHandler();
         let arrVerifCommit = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/verification/commit?userId=" + res["USERDATA"]["STR_USERID"]);
@@ -236,6 +237,7 @@ class Verification extends Component {
         {
             this.verDeleteGridRef = params.api;
         }
+        this.verDeleteGridRef.setRowData([])
         this.verDeleteGridRef.showLoadingOverlay();
         let http = new HttpHandler();
         let arrVerifDelete = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task/verification/delete?userId=" + res["USERDATA"]["STR_USERID"]);
@@ -251,10 +253,10 @@ class Verification extends Component {
     }
 
     openTask(params) {
-        localStorage.setItem("userdata" , JSON.stringify(res["USERDATA"]))
-        localStorage.setItem("api-base-path" , JSON.stringify(res["STR_API_BASEPATH"]))
-        localStorage.setItem("popup-notif" , JSON.stringify(res["POPUP_NOTIFICATION_MAP"]))
-        localStorage.setItem("workflow" , JSON.stringify(res["WORKFLOW"]))
+        //localStorage.setItem("userdata" , JSON.stringify(res["USERDATA"]))
+        //localStorage.setItem("api-base-path" , JSON.stringify(res["STR_API_BASEPATH"]))
+        //localStorage.setItem("popup-notif" , JSON.stringify(res["POPUP_NOTIFICATION_MAP"]))
+        //localStorage.setItem("workflow" , JSON.stringify(res["WORKFLOW"]))
         let url = "/app/taskview/" + params.data.TaskId
         this.setState({openTask: true, taskurl: url})
     }

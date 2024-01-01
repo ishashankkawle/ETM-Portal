@@ -34,6 +34,7 @@ class TaskBoard extends Component {
     {
       this.gridRef = params.api;
     }
+    this.gridRef.setRowData([])
     this.gridRef.showLoadingOverlay();
     const http = new HttpHandler();
     let data = await http.httpGet(res["STR_API_BASEPATH"] + "/api/task?taskFilter=TaskOwner&filterParam=" + res["USERDATA"]["STR_USERID"])
@@ -124,10 +125,10 @@ class TaskBoard extends Component {
   }
 
   openTask(params) {
-    localStorage.setItem("userdata" , JSON.stringify(res["USERDATA"]))
-    localStorage.setItem("api-base-path" , JSON.stringify(res["STR_API_BASEPATH"]))
-    localStorage.setItem("popup-notif" , JSON.stringify(res["POPUP_NOTIFICATION_MAP"]))
-    localStorage.setItem("workflow" , JSON.stringify(res["WORKFLOW"]))
+    //localStorage.setItem("userdata" , JSON.stringify(res["USERDATA"]))
+    //localStorage.setItem("api-base-path" , JSON.stringify(res["STR_API_BASEPATH"]))
+    //localStorage.setItem("popup-notif" , JSON.stringify(res["POPUP_NOTIFICATION_MAP"]))
+    //localStorage.setItem("workflow" , JSON.stringify(res["WORKFLOW"]))
     //window.open(process.env.PUBLIC_URL + "/taskview/" + params.data.TaskId, "_blank")
     let url = "/app/taskview/" + params.data.TaskId
     this.setState({openTask: true, taskurl: url})
