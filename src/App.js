@@ -40,7 +40,7 @@ class App extends Component {
     return (
       <HashRouter basename={`/${process.env.PUBLIC_URL}`}>
         <Routes>
-          <Route exact path="/" element={<Login />} />
+          <Route exact index path="/" element={<Login />} />
           <Route exact path="/app" element={ <ProtectedRoutes element="Landing" route=<Landing /> />}>
             <Route index element={<ProtectedRoutes element="Dashboard" route=<Dashboard /> />} /> 
             <Route path="taskboard" element={ <ProtectedRoutes element="TaskBoard" route=<TaskBoard /> />} /> 
