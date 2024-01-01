@@ -58,8 +58,8 @@ class App extends Component {
             <Route path="operations/sprint" element={<ProtectedRoutes element="Sprint" route=<Sprint /> />} />
             <Route path="insight/project" element={<ProtectedRoutes element="InsProject" route=<InsProject /> />} /> 
             <Route path="insight/task" element={<ProtectedRoutes element="InsTask" route=<InsTask /> />} /> 
+            <Route path="/taskview/:id" element={<TaskView />} /> 
           </Route>
-          <Route path="/taskview/:id" element={<TaskView />} /> 
         </Routes>
       </BrowserRouter>
     )
