@@ -9,6 +9,7 @@ import HttpHandler from "../../core/httpHandler";
 import res from "../../shared/resources";
 import { getPreviousWorkflowStatus } from "../../core/workflowOperations";
 import { Navigate } from "react-router";
+import PopupNotification from "../popup/popup";
 
 
 class Verification extends Component {
@@ -19,6 +20,7 @@ class Verification extends Component {
         this.rcsGridRef = "";
         this.verCommitGridRef = "";
         this.verDeleteGridRef = "";
+        this.popupRef = React.createRef();
         this.state = { 
             isLoading: false , 
             summaryCountObject : {} ,
@@ -49,6 +51,8 @@ class Verification extends Component {
     }
 
     updateTaskToComplete = async() => {
+
+        this.popupRef.current.togglePopupNotificationDisplay("Updating task to Complete ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
         let arrData = this.verCommitGridRef.getSelectedRows();
         let body = []
     
@@ -66,9 +70,11 @@ class Verification extends Component {
         }
         const http = new HttpHandler();
         await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
+        this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
     updateTaskToDelete = async() => {
+        this.popupRef.current.togglePopupNotificationDisplay("Updating task to Delete ..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
         let arrData = this.verDeleteGridRef.getSelectedRows();
         let body = []
     
@@ -86,9 +92,11 @@ class Verification extends Component {
         }
         const http = new HttpHandler();
         await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
+        this.popupRef.current.togglePopupNotificationDisplay("Successfully updated task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
     
     revertTaskFromComGrid = async() => {
+        this.popupRef.current.togglePopupNotificationDisplay("Reverting task..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
         let arrData = this.verCommitGridRef.getSelectedRows();
         let body = []
     
@@ -106,9 +114,11 @@ class Verification extends Component {
         }
         const http = new HttpHandler();
         await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
+        this.popupRef.current.togglePopupNotificationDisplay("Successfully reverted task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
     
     revertTaskFromDelGrid = async() => {
+        this.popupRef.current.togglePopupNotificationDisplay("Reverting task..." , res["POPUP_NOTIFICATION_MAP"]["type"]["LOADING"] , 80000)
         let arrData = this.verDeleteGridRef.getSelectedRows();
         let body = []
     
@@ -126,6 +136,7 @@ class Verification extends Component {
         }
         const http = new HttpHandler();
         await http.httpPut(res["STR_API_BASEPATH"] + "/api/task/activityworkflow" , body)
+        this.popupRef.current.togglePopupNotificationDisplay("Successfully reverted task" , res["POPUP_NOTIFICATION_MAP"]["type"]["SUCCESS"], 10000)
     }
 
     populateSummaryCount = (data) => {
@@ -451,6 +462,8 @@ class Verification extends Component {
                         </div>
                     </div>
                 </div>
+
+                <PopupNotification ref={this.popupRef}/>
             </div>
         )
     }
